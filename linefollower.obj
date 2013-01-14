@@ -1,0 +1,243 @@
+<MODULE>
+linefollower
+</MODULE>
+
+<OPTC51>
+--model-small
+</OPTC51>
+
+<SEGMENTS>
+R_GSINIT,code,0000,NO
+R_BSEG,bit,0000,NO
+R_XSEG,xdata,0000,NO
+BIT_BANK,data,0000,OV
+R_CONST,code,0000,NO
+rbank0,data,0000,OV
+R_DINIT,code,0012,NO
+R_DSEG,data,0009,NO
+R_OSEG,data,0001,OV
+R_IXSEG,xdata,0000,NO
+R_ISEG,idata,0000,NO
+R_HOME,code,0000,NO
+R_XINIT,code,0000,NO
+R_CSEG,code,00DC,NO
+</SEGMENTS>
+
+<LOCALS>
+L002004?,R_CSEG,0004,0000
+L002003?,R_CSEG,0013,0000
+L004008?,R_CSEG,00B8,0000
+_pid_leftMotorPower_1_7,R_DSEG,0006,0001
+L004006?,R_CSEG,00AD,0000
+L004005?,R_CSEG,00A2,0000
+L004003?,R_CSEG,006B,0000
+L004002?,R_CSEG,005D,0000
+L005002?,R_CSEG,00D0,0000
+_pid_x_1_7,R_DSEG,0004,0001
+_pid_kP_1_7,R_DSEG,0001,0001
+_pid_deltaX_1_7,R_DSEG,0005,0001
+L002017?,R_CSEG,0018,0000
+_pid_prevX_1_7,R_DSEG,0003,0001
+_pid_speed_1_7,R_DSEG,0000,0001
+L004019?,R_CSEG,0084,0000
+L004017?,R_CSEG,003C,0000
+L004010?,R_CSEG,00C3,0000
+_pid_kD_1_7,R_DSEG,0002,0001
+_pid_rightMotorPower_1_7,R_DSEG,0007,0001
+L002008?,R_CSEG,0023,0000
+</LOCALS>
+
+<PUBLICS>
+_main,R_CSEG,00D0,0000
+_pwm_PARM_2,R_OSEG,0000,0001
+_delay,R_CSEG,0000,0000
+_pid_PARM_2,R_DSEG,0008,0001
+_pid,R_CSEG,0025,0000
+_pwm,R_CSEG,0024,0000
+</PUBLICS>
+
+<EXTERNALS>
+_crt0,any,0000,0000
+</EXTERNALS>
+
+<CODE AT 0000>
+</CODE>
+
+<CODE R_HOME>
+</CODE>
+
+<CODE R_GSINIT>
+</CODE>
+
+<CODE R_CSEG>
+</CODE>
+
+<CODE AT 0000>
+02 addr16(_crt0;)  
+</CODE>
+
+<CODE R_HOME>
+</CODE>
+
+<CODE R_GSINIT>
+</CODE>
+
+<CODE R_GSINIT>
+</CODE>
+
+<CODE R_DINIT>
+75 data8(_pid_speed_1_7;) 7F
+75 data8(_pid_kP_1_7;) 01
+75 data8(_pid_kD_1_7;) 01
+75 data8(_pid_prevX_1_7;) 00
+75 data8(_pid_x_1_7;) 00
+75 data8(_pid_deltaX_1_7;) 00
+</CODE>
+
+<CODE R_CSEG>
+7A 00
+7B 00
+C3
+EA
+94 64
+EB
+64 80
+94 80
+50 rel2(L002008?;)
+7C E8
+7D 03
+1C
+BC FF rel3(L002017?;)
+1D
+EC
+4D
+70 rel2(L002003?;)
+0A
+BA 00 rel3(L002004?;)
+0B
+80 rel2(L002004?;)
+22
+22
+E5 82
+C3
+13
+FA
+E5 data8(_pid_PARM_2;)
+C3
+13
+FB
+EA
+C3
+9B
+F5 data8(_pid_x_1_7;)
+23
+54 01
+30 E0 rel3(L004017?;)
+44 FE
+FA
+33
+95 E0
+FB
+EA
+F4
+FA
+EB
+F4
+FB
+EA
+30 E0 rel3(L004002?;)
+85 data8(_pid_kP_1_7;) F0
+E5 data8(_pid_x_1_7;)
+A4
+FA
+E5 data8(_pid_speed_1_7;)
+C3
+9A
+F5 data8(_pid_leftMotorPower_1_7;)
+85 data8(_pid_speed_1_7;) data8(_pid_rightMotorPower_1_7;)
+80 rel2(L004003?;)
+85 data8(_pid_speed_1_7;) data8(_pid_leftMotorPower_1_7;)
+85 data8(_pid_kP_1_7;) F0
+E5 data8(_pid_x_1_7;)
+A4
+FA
+25 data8(_pid_speed_1_7;)
+F5 data8(_pid_rightMotorPower_1_7;)
+E5 data8(_pid_x_1_7;)
+A2 E7
+13
+FA
+E5 data8(_pid_prevX_1_7;)
+A2 E7
+13
+FB
+EA
+C3
+9B
+F5 data8(_pid_deltaX_1_7;)
+23
+54 01
+30 E0 rel3(L004019?;)
+44 FE
+FA
+33
+95 E0
+FB
+EA
+F4
+FA
+EB
+F4
+FB
+EA
+30 E0 rel3(L004005?;)
+85 data8(_pid_kD_1_7;) F0
+E5 data8(_pid_deltaX_1_7;)
+A4
+FA
+E5 data8(_pid_leftMotorPower_1_7;)
+C3
+9A
+F5 data8(_pid_leftMotorPower_1_7;)
+80 rel2(L004006?;)
+85 data8(_pid_kD_1_7;) F0
+E5 data8(_pid_deltaX_1_7;)
+A4
+FA
+25 data8(_pid_rightMotorPower_1_7;)
+F5 data8(_pid_rightMotorPower_1_7;)
+E5 data8(_pid_leftMotorPower_1_7;)
+23
+54 01
+FA
+60 rel2(L004008?;)
+75 data8(_pid_leftMotorPower_1_7;) 00
+E5 data8(_pid_rightMotorPower_1_7;)
+23
+54 01
+FA
+60 rel2(L004010?;)
+75 data8(_pid_rightMotorPower_1_7;) 00
+85 data8(_pid_rightMotorPower_1_7;) data8(_pwm_PARM_2;)
+85 data8(_pid_leftMotorPower_1_7;) 82
+12 addr16(_pwm;)  
+85 data8(_pid_x_1_7;) data8(_pid_prevX_1_7;)
+22
+C2 A1
+12 addr16(_delay;)  
+D2 A1
+12 addr16(_delay;)  
+80 rel2(L005002?;)
+</CODE>
+
+<CODE R_CSEG>
+</CODE>
+
+<CODE R_CONST>
+</CODE>
+
+<CODE R_XINIT>
+</CODE>
+
+<CODE AT 0003>
+</CODE>

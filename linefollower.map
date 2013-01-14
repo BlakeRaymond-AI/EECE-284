@@ -1,19 +1,19 @@
 Modules linked:
-   'hello' from 'hello.obj'
+   'linefollower' from 'linefollower.obj'
    'crt0' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libc51.lib'
    'startup' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libc51.lib'
 
 Memory use per module linked:
-              hello: C:00048 D:000 I:000 B:000 X:00000
+       linefollower: C:00238 D:010 I:000 B:000 X:00000
                crt0: C:00089 D:000 I:000 B:000 X:00000
             startup: C:00004 D:000 I:000 B:000 X:00000
            ABSOLUTE: C:00004 D:000 I:000 B:000 X:00000
 ------------------------------------------------------
-             Totals: C:00145 D:000 I:000 B:000 X:00000
+             Totals: C:00335 D:010 I:000 B:000 X:00000
 
 INTERMAL RAM map (see legend below):
-00: 0 0 0 0 0 0 0 0 . . . . . . . . 
-10: . . . . . . . . . . . . . . . . 
+00: 0 0 0 0 0 0 0 0 a a a a a a a a 
+10: a b . . . . . . . . . . . . . . 
 20: . . . . . . . . . . . . . . . . 
 30: . . . . . . . . . . . . . . . . 
 40: . . . . . . . . . . . . . . . . 
@@ -35,6 +35,8 @@ Legend:
 	2: Register bank 2
 	3: Register bank 3
 	B: bits (see 'BIT map' below)
+	a: linefollower:R_DSEG
+	b: R_OSEG
 
 BIT map:
 00: . . . . . . . . . . . . . . . . 
@@ -47,7 +49,7 @@ BIT map:
 70: . . . . . . . . . . . . . . . . 
 
 CODE usage map:
-0000: 145 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+0000: 256 079 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 1000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 2000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 3000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
@@ -63,7 +65,7 @@ C000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000
 D000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 E000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 F000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
-Total: 145 bytes
+Total: 335 bytes
 
 XDATA usage map:
 0000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
@@ -88,14 +90,14 @@ Base Segments:
    BIT_BANK=D:0000, size=0000
    R_BSEG=B:0000, size=0000
    R_CONST=C:0000, size=0000
-   R_CSEG=C:005D, size=0034
-   R_DINIT=C:005C, size=0000
-   R_DSEG=D:0000, size=0000
+   R_CSEG=C:006F, size=00E0
+   R_DINIT=C:005C, size=0012
+   R_DSEG=D:0000, size=0009
    R_GSINIT=C:0003, size=0059
    R_HOME=C:0000, size=0000
    R_ISEG=I:0000, size=0000
    R_IXSEG=X:0000, size=0000
-   R_OSEG=D:0000, size=0000
+   R_OSEG=D:0011, size=0001
    R_XINIT=C:0000, size=0000
    R_XSEG=X:0000, size=0000
    rbank0=D:0000, size=0008
@@ -103,17 +105,20 @@ Base Segments:
 Module Segments:
    CSEG=C:0000, size=0004
    crt0:R_GSINIT=C:0003, size=0059
-   hello:R_CSEG=C:005D, size=0030
-   startup:R_CSEG=C:008D, size=0004
+   linefollower:R_CSEG=C:006F, size=00DC
+   linefollower:R_DINIT=C:005C, size=0012
+   linefollower:R_DSEG=D:0008, size=0009
+   linefollower:R_OSEG=D:0011, size=0001
+   startup:R_CSEG=C:014B, size=0004
 
 Public symbols:
    _R_BSEG_size=L:0000
    _R_BSEG_start=L:0000
    _R_CONST_size=L:0000
    _R_CONST_start=L:0000
-   _R_CSEG_size=L:0034
-   _R_CSEG_start=L:005D
-   _R_DINIT_size=L:0000
+   _R_CSEG_size=L:00E0
+   _R_CSEG_start=L:006F
+   _R_DINIT_size=L:0012
    _R_DINIT_start=L:005C
    _R_GSINIT_size=L:0059
    _R_GSINIT_start=L:0003
@@ -123,18 +128,24 @@ Public symbols:
    _R_ISEG_start=L:0000
    _R_IXSEG_size=L:0000
    _R_IXSEG_start=L:0000
-   _R_OSEG_size=L:0000
-   _R_OSEG_start=L:0000
+   _R_OSEG_size=L:0001
+   _R_OSEG_start=L:0011
    _R_XINIT_size=L:0000
    _R_XINIT_start=L:0000
    _R_XSEG_size=L:0000
    _R_XSEG_start=L:0000
-   __c51_external_startup=C:008D
+   __c51_external_startup=C:014B
    _crt0=C:0003
-   _delay=C:005D
-   _dummy_name_crt0=C:008D
-   _main=C:0081
-   _stack_start=L:0008
+   _delay=C:006F
+   _dummy_name_crt0=C:014B
+   _linefollower_R_DSEG_size=L:0009
+   _linefollower_R_DSEG_start=L:0008
+   _main=C:013F
+   _pid=C:0094
+   _pid_PARM_2=D:0010
+   _pwm=C:0093
+   _pwm_PARM_2=D:0011
+   _stack_start=L:0012
 
 Local symbols:
    crt0:XClearLoop?done?=C:0054
@@ -144,8 +155,24 @@ Local symbols:
    crt0:__c51_init_data=C:0010
    crt0:__c51_program_startup=C:0057
    crt0:forever?home?=C:005A
-   hello:L002003?=C:0070
-   hello:L002004?=C:0061
-   hello:L002008?=C:0080
-   hello:L002017?=C:0075
-   hello:L003002?=C:0081
+   linefollower:L002003?=C:0082
+   linefollower:L002004?=C:0073
+   linefollower:L002008?=C:0092
+   linefollower:L002017?=C:0087
+   linefollower:L004002?=C:00CC
+   linefollower:L004003?=C:00DA
+   linefollower:L004005?=C:0111
+   linefollower:L004006?=C:011C
+   linefollower:L004008?=C:0127
+   linefollower:L004010?=C:0132
+   linefollower:L004017?=C:00AB
+   linefollower:L004019?=C:00F3
+   linefollower:L005002?=C:013F
+   linefollower:_pid_deltaX_1_7=D:000D
+   linefollower:_pid_kD_1_7=D:000A
+   linefollower:_pid_kP_1_7=D:0009
+   linefollower:_pid_leftMotorPower_1_7=D:000E
+   linefollower:_pid_prevX_1_7=D:000B
+   linefollower:_pid_rightMotorPower_1_7=D:000F
+   linefollower:_pid_speed_1_7=D:0008
+   linefollower:_pid_x_1_7=D:000C

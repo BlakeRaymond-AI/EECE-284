@@ -1,9 +1,9 @@
 ;--------------------------------------------------------
 ; File Created by C51
 ; Version 1.0.0 #1034 (Dec 12 2012) (MSVC)
-; This file was generated Thu Jan 10 15:26:59 2013
+; This file was generated Sun Jan 13 21:38:26 2013
 ;--------------------------------------------------------
-$name hello
+$name linefollower
 $optc51 --model-small
 	R_DSEG    segment data
 	R_CSEG    segment code
@@ -22,8 +22,12 @@ $optc51 --model-small
 ;--------------------------------------------------------
 ; Public variables in this module
 ;--------------------------------------------------------
+	public _pwm_PARM_2
 	public _main
+	public _pid
+	public _pwm
 	public _delay
+	public _pid_PARM_2
 ;--------------------------------------------------------
 ; Special Function Registers
 ;--------------------------------------------------------
@@ -232,10 +236,31 @@ _ENH            BIT 0xe8
 ; internal ram data
 ;--------------------------------------------------------
 	rseg R_DSEG
+_pid_speed_1_7:
+	ds 1
+_pid_kP_1_7:
+	ds 1
+_pid_kD_1_7:
+	ds 1
+_pid_prevX_1_7:
+	ds 1
+_pid_x_1_7:
+	ds 1
+_pid_deltaX_1_7:
+	ds 1
+_pid_leftMotorPower_1_7:
+	ds 1
+_pid_rightMotorPower_1_7:
+	ds 1
+_pid_PARM_2:
+	ds 1
 ;--------------------------------------------------------
 ; overlayable items in internal ram 
 ;--------------------------------------------------------
 	rseg	R_OSEG
+	rseg	R_OSEG
+_pwm_PARM_2:
+	ds 1
 ;--------------------------------------------------------
 ; indirectly addressable internal ram data
 ;--------------------------------------------------------
@@ -282,6 +307,32 @@ _ENH            BIT 0xe8
 ; data variables initialization
 ;--------------------------------------------------------
 	rseg R_DINIT
+;------------------------------------------------------------
+;Allocation info for local variables in function 'pid'
+;------------------------------------------------------------
+;speed                     Allocated with name '_pid_speed_1_7'
+;kP                        Allocated with name '_pid_kP_1_7'
+;kD                        Allocated with name '_pid_kD_1_7'
+;prevX                     Allocated with name '_pid_prevX_1_7'
+;x                         Allocated with name '_pid_x_1_7'
+;deltaX                    Allocated with name '_pid_deltaX_1_7'
+;leftMotorPower            Allocated with name '_pid_leftMotorPower_1_7'
+;rightMotorPower           Allocated with name '_pid_rightMotorPower_1_7'
+;rightSignal               Allocated with name '_pid_PARM_2'
+;leftSignal                Allocated to registers r2 
+;------------------------------------------------------------
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:26: static uint8 speed = 127;
+	mov	_pid_speed_1_7,#0x7F
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:27: static uint8 kP =1;
+	mov	_pid_kP_1_7,#0x01
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:28: static uint8 kD =1;
+	mov	_pid_kD_1_7,#0x01
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:29: static int8 prevX =0;
+	mov	_pid_prevX_1_7,#0x00
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:30: static int8 x =0;
+	mov	_pid_x_1_7,#0x00
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:31: static int8 deltaX =0;
+	mov	_pid_deltaX_1_7,#0x00
 	; The linker places a 'ret' at the end of segment R_DINIT.
 ;--------------------------------------------------------
 ; code
@@ -293,13 +344,13 @@ _ENH            BIT 0xe8
 ;j                         Allocated to registers r2 r3 
 ;k                         Allocated to registers r4 r5 
 ;------------------------------------------------------------
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\hello.c:3: void delay(void)
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:9: void delay(void)
 ;	-----------------------------------------
 ;	 function delay
 ;	-----------------------------------------
 _delay:
 	using	0
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\hello.c:8: for(j=0; j<100; ++j)
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:14: for(j=0; j<100; ++j)
 	mov	r2,#0x00
 	mov	r3,#0x00
 L002004?:
@@ -310,7 +361,7 @@ L002004?:
 	xrl	a,#0x80
 	subb	a,#0x80
 	jnc	L002008?
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\hello.c:10: for(k=0; k<1000; ++k);
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:16: for(k=0; k<1000; ++k);
 	mov	r4,#0xE8
 	mov	r5,#0x03
 L002003?:
@@ -321,7 +372,7 @@ L002017?:
 	mov	a,r4
 	orl	a,r5
 	jnz	L002003?
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\hello.c:8: for(j=0; j<100; ++j)
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:14: for(j=0; j<100; ++j)
 	inc	r2
 	cjne	r2,#0x00,L002004?
 	inc	r3
@@ -329,25 +380,184 @@ L002017?:
 L002008?:
 	ret
 ;------------------------------------------------------------
+;Allocation info for local variables in function 'pwm'
+;------------------------------------------------------------
+;rightMotorPower           Allocated with name '_pwm_PARM_2'
+;leftMotorPower            Allocated to registers 
+;------------------------------------------------------------
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:20: void pwm(uint8 leftMotorPower, uint8 rightMotorPower)
+;	-----------------------------------------
+;	 function pwm
+;	-----------------------------------------
+_pwm:
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:22: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'pid'
+;------------------------------------------------------------
+;speed                     Allocated with name '_pid_speed_1_7'
+;kP                        Allocated with name '_pid_kP_1_7'
+;kD                        Allocated with name '_pid_kD_1_7'
+;prevX                     Allocated with name '_pid_prevX_1_7'
+;x                         Allocated with name '_pid_x_1_7'
+;deltaX                    Allocated with name '_pid_deltaX_1_7'
+;leftMotorPower            Allocated with name '_pid_leftMotorPower_1_7'
+;rightMotorPower           Allocated with name '_pid_rightMotorPower_1_7'
+;rightSignal               Allocated with name '_pid_PARM_2'
+;leftSignal                Allocated to registers r2 
+;------------------------------------------------------------
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:24: void pid(uint8 leftSignal, uint8 rightSignal)
+;	-----------------------------------------
+;	 function pid
+;	-----------------------------------------
+_pid:
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:35: x = (leftSignal>>1) - (rightSignal>>1); //Right-handed coordinate system; on the wire is x=0
+	mov	a,dpl
+	clr	c
+	rrc	a
+	mov	r2,a
+	mov	a,_pid_PARM_2
+	clr	c
+	rrc	a
+	mov	r3,a
+	mov	a,r2
+	clr	c
+	subb	a,r3
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:37: if(ISPOSITIVE(x)) //Robot is to the right; reduce left power
+	mov	_pid_x_1_7,a
+	rl	a
+	anl	a,#0x01
+	jnb	acc.0,L004017?
+	orl	a,#0xfe
+L004017?:
+	mov	r2,a
+	rlc	a
+	subb	a,acc
+	mov	r3,a
+	mov	a,r2
+	cpl	a
+	mov	r2,a
+	mov	a,r3
+	cpl	a
+	mov	r3,a
+	mov	a,r2
+	jnb	acc.0,L004002?
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:40: leftMotorPower = speed - kP*x;
+	mov	b,_pid_kP_1_7
+	mov	a,_pid_x_1_7
+	mul	ab
+	mov	r2,a
+	mov	a,_pid_speed_1_7
+	clr	c
+	subb	a,r2
+	mov	_pid_leftMotorPower_1_7,a
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:41: rightMotorPower = speed; 
+	mov	_pid_rightMotorPower_1_7,_pid_speed_1_7
+	sjmp	L004003?
+L004002?:
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:46: leftMotorPower = speed;
+	mov	_pid_leftMotorPower_1_7,_pid_speed_1_7
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:47: rightMotorPower = speed + kP*x;
+	mov	b,_pid_kP_1_7
+	mov	a,_pid_x_1_7
+	mul	ab
+	mov	r2,a
+	add	a,_pid_speed_1_7
+	mov	_pid_rightMotorPower_1_7,a
+L004003?:
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:50: deltaX = (x>>1) - (prevX>>1);
+	mov	a,_pid_x_1_7
+	mov	c,acc.7
+	rrc	a
+	mov	r2,a
+	mov	a,_pid_prevX_1_7
+	mov	c,acc.7
+	rrc	a
+	mov	r3,a
+	mov	a,r2
+	clr	c
+	subb	a,r3
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:52: if(ISPOSITIVE(deltaX)) //Robot is moving to the right; reduce left power
+	mov	_pid_deltaX_1_7,a
+	rl	a
+	anl	a,#0x01
+	jnb	acc.0,L004019?
+	orl	a,#0xfe
+L004019?:
+	mov	r2,a
+	rlc	a
+	subb	a,acc
+	mov	r3,a
+	mov	a,r2
+	cpl	a
+	mov	r2,a
+	mov	a,r3
+	cpl	a
+	mov	r3,a
+	mov	a,r2
+	jnb	acc.0,L004005?
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:54: leftMotorPower -= kD*deltaX;
+	mov	b,_pid_kD_1_7
+	mov	a,_pid_deltaX_1_7
+	mul	ab
+	mov	r2,a
+	mov	a,_pid_leftMotorPower_1_7
+	clr	c
+	subb	a,r2
+	mov	_pid_leftMotorPower_1_7,a
+	sjmp	L004006?
+L004005?:
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:58: rightMotorPower += kD*deltaX;
+	mov	b,_pid_kD_1_7
+	mov	a,_pid_deltaX_1_7
+	mul	ab
+	mov	r2,a
+	add	a,_pid_rightMotorPower_1_7
+	mov	_pid_rightMotorPower_1_7,a
+L004006?:
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:62: if(ISNEGATIVE(leftMotorPower)) leftMotorPower =0;
+	mov	a,_pid_leftMotorPower_1_7
+	rl	a
+	anl	a,#0x01
+	mov	r2,a
+	jz	L004008?
+	mov	_pid_leftMotorPower_1_7,#0x00
+L004008?:
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:63: if(ISNEGATIVE(rightMotorPower)) rightMotorPower =0;
+	mov	a,_pid_rightMotorPower_1_7
+	rl	a
+	anl	a,#0x01
+	mov	r2,a
+	jz	L004010?
+	mov	_pid_rightMotorPower_1_7,#0x00
+L004010?:
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:65: pwm(leftMotorPower, rightMotorPower);
+	mov	_pwm_PARM_2,_pid_rightMotorPower_1_7
+	mov	dpl,_pid_leftMotorPower_1_7
+	lcall	_pwm
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:67: prevX = x;	
+	mov	_pid_prevX_1_7,_pid_x_1_7
+	ret
+;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\hello.c:14: void main(void)
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:72: void main(void)
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\hello.c:16: while(1)
-L003002?:
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\hello.c:18: P2_1 = 0;
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:74: while(1)
+L005002?:
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:76: P2_1 = 0;
 	clr	_P2_1
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\hello.c:19: delay();
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:77: delay();
 	lcall	_delay
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\hello.c:20: P2_1 = 1;
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:78: P2_1 = 1;
 	setb	_P2_1
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\hello.c:21: delay();
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\linefollower.c:79: delay();
 	lcall	_delay
-	sjmp	L003002?
+	sjmp	L005002?
 	rseg R_CSEG
 
 	rseg R_CONST
