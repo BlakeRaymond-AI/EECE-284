@@ -1,19 +1,21 @@
 Modules linked:
-   'linefollower' from 'linefollower.obj'
+   'square_lp828' from 'square_lp828.obj'
+   'setbaud2' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libc51.lib'
    'crt0' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libc51.lib'
    'startup' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libc51.lib'
 
 Memory use per module linked:
-       linefollower: C:00238 D:010 I:000 B:000 X:00000
+       square_lp828: C:00229 D:007 I:000 B:000 X:00000
+           setbaud2: C:00017 D:000 I:000 B:000 X:00000
                crt0: C:00089 D:000 I:000 B:000 X:00000
             startup: C:00004 D:000 I:000 B:000 X:00000
-           ABSOLUTE: C:00004 D:000 I:000 B:000 X:00000
+           ABSOLUTE: C:00007 D:000 I:000 B:000 X:00000
 ------------------------------------------------------
-             Totals: C:00335 D:010 I:000 B:000 X:00000
+             Totals: C:00346 D:007 I:000 B:000 X:00000
 
 INTERMAL RAM map (see legend below):
-00: 0 0 0 0 0 0 0 0 a a a a a a a a 
-10: a b . . . . . . . . . . . . . . 
+00: 0 0 0 0 0 0 0 0 a a a a a a a . 
+10: . . . . . . . . . . . . . . . . 
 20: . . . . . . . . . . . . . . . . 
 30: . . . . . . . . . . . . . . . . 
 40: . . . . . . . . . . . . . . . . 
@@ -35,8 +37,7 @@ Legend:
 	2: Register bank 2
 	3: Register bank 3
 	B: bits (see 'BIT map' below)
-	a: linefollower:R_DSEG
-	b: R_OSEG
+	a: square_lp828:R_DSEG
 
 BIT map:
 00: . . . . . . . . . . . . . . . . 
@@ -49,7 +50,7 @@ BIT map:
 70: . . . . . . . . . . . . . . . . 
 
 CODE usage map:
-0000: 256 079 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+0000: 249 097 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 1000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 2000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 3000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
@@ -65,7 +66,7 @@ C000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000
 D000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 E000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 F000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
-Total: 335 bytes
+Total: 346 bytes
 
 XDATA usage map:
 0000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
@@ -90,89 +91,80 @@ Base Segments:
    BIT_BANK=D:0000, size=0000
    R_BSEG=B:0000, size=0000
    R_CONST=C:0000, size=0000
-   R_CSEG=C:006F, size=00E0
-   R_DINIT=C:005C, size=0012
-   R_DSEG=D:0000, size=0009
-   R_GSINIT=C:0003, size=0059
+   R_CSEG=C:0067, size=00FA
+   R_DINIT=C:0003, size=0000
+   R_DSEG=D:0000, size=0007
+   R_GSINIT=C:000E, size=0059
    R_HOME=C:0000, size=0000
    R_ISEG=I:0000, size=0000
    R_IXSEG=X:0000, size=0000
-   R_OSEG=D:0011, size=0001
+   R_OSEG=D:0000, size=0000
    R_XINIT=C:0000, size=0000
    R_XSEG=X:0000, size=0000
    rbank0=D:0000, size=0008
 
 Module Segments:
-   CSEG=C:0000, size=0004
-   crt0:R_GSINIT=C:0003, size=0059
-   linefollower:R_CSEG=C:006F, size=00DC
-   linefollower:R_DINIT=C:005C, size=0012
-   linefollower:R_DSEG=D:0008, size=0009
-   linefollower:R_OSEG=D:0011, size=0001
-   startup:R_CSEG=C:014B, size=0004
+   CSEG=C:0000, size=0007
+   crt0:R_GSINIT=C:000E, size=0059
+   setbaud2:R_CSEG=C:014C, size=0011
+   square_lp828:R_CSEG=C:0067, size=00E5
+   square_lp828:R_DSEG=D:0008, size=0007
+   startup:R_CSEG=C:015D, size=0004
 
 Public symbols:
+   _GetADC=C:0088
+   _InitTimer0=C:0067
+   _LineFollow=C:00DC
    _R_BSEG_size=L:0000
    _R_BSEG_start=L:0000
    _R_CONST_size=L:0000
    _R_CONST_start=L:0000
-   _R_CSEG_size=L:00E0
-   _R_CSEG_start=L:006F
-   _R_DINIT_size=L:0012
-   _R_DINIT_start=L:005C
+   _R_CSEG_size=L:00FA
+   _R_CSEG_start=L:0067
+   _R_DINIT_size=L:0000
+   _R_DINIT_start=L:0003
    _R_GSINIT_size=L:0059
-   _R_GSINIT_start=L:0003
+   _R_GSINIT_start=L:000E
    _R_HOME_size=L:0000
    _R_HOME_start=L:0000
    _R_ISEG_size=L:0000
    _R_ISEG_start=L:0000
    _R_IXSEG_size=L:0000
    _R_IXSEG_start=L:0000
-   _R_OSEG_size=L:0001
-   _R_OSEG_start=L:0011
+   _R_OSEG_size=L:0000
+   _R_OSEG_start=L:0000
    _R_XINIT_size=L:0000
    _R_XINIT_start=L:0000
    _R_XSEG_size=L:0000
    _R_XSEG_start=L:0000
-   __c51_external_startup=C:014B
-   _crt0=C:0003
-   _delay=C:006F
-   _dummy_name_crt0=C:014B
-   _linefollower_R_DSEG_size=L:0009
-   _linefollower_R_DSEG_start=L:0008
-   _main=C:013F
-   _pid=C:0094
-   _pid_PARM_2=D:0010
-   _pwm=C:0093
-   _pwm_PARM_2=D:0011
-   _stack_start=L:0012
+   _SPIWrite=C:007E
+   __c51_external_startup=C:015D
+   _crt0=C:000E
+   _dummy_name_crt0=C:015D
+   _leftInd=D:000B
+   _main=C:0132
+   _pwmL=D:0009
+   _pwmR=D:000A
+   _pwmcount=D:0008
+   _pwmcounter=C:010D
+   _rightInd=D:000D
+   _setbaud_timer2=C:014C
+   _square_lp828_R_DSEG_size=L:0007
+   _square_lp828_R_DSEG_start=L:0008
+   _stack_start=L:000F
+   _wait=C:00CE
 
 Local symbols:
-   crt0:XClearLoop?done?=C:0054
-   crt0:XClearLoop?repeat?=C:0046
-   crt0:XInitLoop?done?=C:003C
-   crt0:XInitLoop?repeat?=C:001C
-   crt0:__c51_init_data=C:0010
-   crt0:__c51_program_startup=C:0057
-   crt0:forever?home?=C:005A
-   linefollower:L002003?=C:0082
-   linefollower:L002004?=C:0073
-   linefollower:L002008?=C:0092
-   linefollower:L002017?=C:0087
-   linefollower:L004002?=C:00CC
-   linefollower:L004003?=C:00DA
-   linefollower:L004005?=C:0111
-   linefollower:L004006?=C:011C
-   linefollower:L004008?=C:0127
-   linefollower:L004010?=C:0132
-   linefollower:L004017?=C:00AB
-   linefollower:L004019?=C:00F3
-   linefollower:L005002?=C:013F
-   linefollower:_pid_deltaX_1_7=D:000D
-   linefollower:_pid_kD_1_7=D:000A
-   linefollower:_pid_kP_1_7=D:0009
-   linefollower:_pid_leftMotorPower_1_7=D:000E
-   linefollower:_pid_prevX_1_7=D:000B
-   linefollower:_pid_rightMotorPower_1_7=D:000F
-   linefollower:_pid_speed_1_7=D:0008
-   linefollower:_pid_x_1_7=D:000C
+   crt0:XClearLoop?done?=C:005F
+   crt0:XClearLoop?repeat?=C:0051
+   crt0:XInitLoop?done?=C:0047
+   crt0:XInitLoop?repeat?=C:0027
+   crt0:__c51_init_data=C:001B
+   crt0:__c51_program_startup=C:0062
+   crt0:forever?home?=C:0065
+   square_lp828:L003001?=C:0084
+   square_lp828:L005001?=C:00D2
+   square_lp828:L005008?=C:00D7
+   square_lp828:L006002?=C:0106
+   square_lp828:L007002?=C:011F
+   square_lp828:L008002?=C:0141

@@ -1,0 +1,211 @@
+<MODULE>
+square_lp828
+</MODULE>
+
+<OPTC51>
+--model-small
+</OPTC51>
+
+<SEGMENTS>
+R_GSINIT,code,0000,NO
+R_BSEG,bit,0000,NO
+R_XSEG,xdata,0000,NO
+BIT_BANK,data,0000,OV
+R_CONST,code,0000,NO
+rbank0,data,0000,OV
+R_DINIT,code,0000,NO
+R_DSEG,data,0007,NO
+R_OSEG,data,0000,OV
+R_IXSEG,xdata,0000,NO
+R_ISEG,idata,0000,NO
+R_HOME,code,0000,NO
+R_XINIT,code,0000,NO
+R_CSEG,code,00E5,NO
+</SEGMENTS>
+
+<LOCALS>
+L003001?,R_CSEG,001D,0000
+L005008?,R_CSEG,0070,0000
+L005001?,R_CSEG,006B,0000
+L006002?,R_CSEG,009F,0000
+L007002?,R_CSEG,00B8,0000
+L008002?,R_CSEG,00DA,0000
+</LOCALS>
+
+<PUBLICS>
+_leftInd,R_DSEG,0003,0002
+_main,R_CSEG,00CB,0000
+_SPIWrite,R_CSEG,0017,0000
+_rightInd,R_DSEG,0005,0002
+_wait,R_CSEG,0067,0000
+_GetADC,R_CSEG,0021,0000
+_InitTimer0,R_CSEG,0000,0000
+_LineFollow,R_CSEG,0075,0000
+_pwmcounter,R_CSEG,00A6,0000
+_pwmL,R_DSEG,0001,0001
+_pwmR,R_DSEG,0002,0001
+_pwmcount,R_DSEG,0000,0001
+</PUBLICS>
+
+<EXTERNALS>
+_setbaud_timer2,any,0000,0000
+_crt0,any,0000,0000
+</EXTERNALS>
+
+<CODE AT 0000>
+</CODE>
+
+<CODE R_HOME>
+</CODE>
+
+<CODE R_GSINIT>
+</CODE>
+
+<CODE R_CSEG>
+</CODE>
+
+<CODE AT 0000>
+02 addr16(_crt0;)  
+</CODE>
+
+<CODE AT 000B>
+02 addr16(_pwmcounter;)  
+</CODE>
+
+<CODE R_HOME>
+</CODE>
+
+<CODE R_GSINIT>
+</CODE>
+
+<CODE R_GSINIT>
+</CODE>
+
+<CODE R_DINIT>
+</CODE>
+
+<CODE R_CSEG>
+C2 8C
+74 F0
+55 89
+44 01
+F5 89
+75 94 FE
+75 92 90
+D2 8C
+D2 A9
+D2 AF
+22
+AA 82
+C2 EF
+8A EA
+30 EF rel3(L003001?;)
+22
+AA 82
+D2 EA
+75 E9 5F
+C2 94
+75 82 01
+C0 02
+12 addr16(_SPIWrite;)  
+D0 02
+EA
+C4
+54 F0
+FA
+74 80
+4A
+F5 82
+12 addr16(_SPIWrite;)  
+74 03
+55 EA
+FB
+7A 00
+75 82 55
+C0 02
+C0 03
+12 addr16(_SPIWrite;)  
+D0 03
+D0 02
+AC EA
+7D 00
+EC
+2A
+FA
+ED
+3B
+FB
+D2 94
+8A 82
+8B 83
+22
+AA 82
+AB 83
+1A
+BA FF rel3(L005008?;)
+1B
+EA
+4B
+70 rel2(L005001?;)
+22
+75 82 00
+12 addr16(_GetADC;)  
+85 82 data8(_leftInd;)
+85 83 data8(_leftInd;0x0001;+;)
+75 82 01
+12 addr16(_GetADC;)  
+85 82 data8(_rightInd;)
+85 83 data8(_rightInd;0x0001;+;)
+C3
+E5 data8(_rightInd;)
+95 data8(_leftInd;)
+E5 data8(_rightInd;0x0001;+;)
+95 data8(_leftInd;0x0001;+;)
+50 rel2(L006002?;)
+75 data8(_pwmL;) 64
+75 data8(_pwmR;) 00
+22
+75 data8(_pwmL;) 00
+75 data8(_pwmR;) 64
+22
+C0 E0
+C0 D0
+75 D0 00
+05 data8(_pwmcount;)
+E5 data8(_pwmcount;)
+24 9C
+50 rel2(L007002?;)
+75 data8(_pwmcount;) 00
+C3
+E5 data8(_pwmcount;)
+95 data8(_pwmL;)
+92 90
+C3
+E5 data8(_pwmcount;)
+95 data8(_pwmR;)
+92 A0
+D0 D0
+D0 E0
+32
+90 FF FE
+12 addr16(_setbaud_timer2;)  
+12 addr16(_InitTimer0;)  
+75 data8(_pwmL;) 00
+75 data8(_pwmR;) 00
+12 addr16(_LineFollow;)  
+90 27 10
+12 addr16(_wait;)  
+80 rel2(L008002?;)
+</CODE>
+
+<CODE R_CSEG>
+</CODE>
+
+<CODE R_CONST>
+</CODE>
+
+<CODE R_XINIT>
+</CODE>
+
+<CODE AT 000E>
+</CODE>

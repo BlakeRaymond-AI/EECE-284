@@ -1,0 +1,547 @@
+0000              1   ;--------------------------------------------------------
+0000              2   ; File Created by C51
+0000              3   ; Version 1.0.0 #1034 (Dec 12 2012) (MSVC)
+0000              4   ; This file was generated Sun Mar 10 12:19:02 2013
+0000              5   ;--------------------------------------------------------
+                  5   $name square_lp828
+                  6   $optc51 --model-small
+0000              8            R_DSEG    segment data
+0000              9            R_CSEG    segment code
+0000             10            R_BSEG    segment bit
+0000             11            R_XSEG    segment xdata
+0000             12            R_ISEG    segment idata
+0000             13            R_OSEG    segment data overlay
+0000             14            BIT_BANK  segment data overlay
+0000             15            R_HOME    segment code
+0000             16            R_GSINIT  segment code
+0000             17            R_IXSEG   segment xdata
+0000             18            R_CONST   segment code
+0000             19            R_XINIT   segment code
+0000             20            R_DINIT   segment code
+0000             21   
+0000             22   ;--------------------------------------------------------
+0000             23   ; Public variables in this module
+0000             24   ;--------------------------------------------------------
+0000             25            public _main
+0000             26            public _pwmcounter
+0000             27            public _LineFollow
+0000             28            public _wait
+0000             29            public _GetADC
+0000             30            public _SPIWrite
+0000             31            public _InitTimer0
+0000             32            public _rightInd
+0000             33            public _leftInd
+0000             34            public _pwmR
+0000             35            public _pwmL
+0000             36            public _pwmcount
+0000             37   ;--------------------------------------------------------
+0000             38   ; Special Function Registers
+0000             39   ;--------------------------------------------------------
+0000             40   _P1             DATA 0x90
+0000             41   _P1M0           DATA 0xc2
+0000             42   _P1M1           DATA 0xc3
+0000             43   _P2             DATA 0xa0
+0000             44   _P2M0           DATA 0xc4
+0000             45   _P2M1           DATA 0xc5
+0000             46   _P3             DATA 0xb0
+0000             47   _P3M0           DATA 0xc5
+0000             48   _P3M1           DATA 0xc6
+0000             49   _P4             DATA 0xc0
+0000             50   _P4M0           DATA 0xbe
+0000             51   _P4M1           DATA 0xbf
+0000             52   _PSW            DATA 0xd0
+0000             53   _ACC            DATA 0xe0
+0000             54   _B              DATA 0xf0
+0000             55   _SP             DATA 0x81
+0000             56   _DPL            DATA 0x82
+0000             57   _DPH            DATA 0x83
+0000             58   _DP0L           DATA 0x82
+0000             59   _DP0H           DATA 0x83
+0000             60   _DP1L           DATA 0x84
+0000             61   _DP1H           DATA 0x85
+0000             62   _AUXR           DATA 0x8e
+0000             63   _AUXR1          DATA 0xa2
+0000             64   _DPCF           DATA 0xa2
+0000             65   _PAGE           DATA 0x86
+0000             66   _TCON           DATA 0x88
+0000             67   _TMOD           DATA 0x89
+0000             68   _T2CON          DATA 0xc8
+0000             69   _T2MOD          DATA 0xc9
+0000             70   _TL0            DATA 0x8a
+0000             71   _TL1            DATA 0x8b
+0000             72   _TL2            DATA 0xcc
+0000             73   _TH0            DATA 0x8c
+0000             74   _TH1            DATA 0x8d
+0000             75   _TH2            DATA 0xcd
+0000             76   _TCONB          DATA 0x91
+0000             77   _RL0            DATA 0x92
+0000             78   _RL1            DATA 0x93
+0000             79   _RH0            DATA 0x94
+0000             80   _RH1            DATA 0x95
+0000             81   _RCAP2L         DATA 0xca
+0000             82   _RCAP2H         DATA 0xcb
+0000             83   _WDTRST         DATA 0xa6
+0000             84   _WDTCON         DATA 0xa7
+0000             85   _SCON           DATA 0x98
+0000             86   _SBUF           DATA 0x99
+0000             87   _SADEN          DATA 0xb9
+0000             88   _SADDR          DATA 0xa9
+0000             89   _IE             DATA 0xa8
+0000             90   _IP             DATA 0xb8
+0000             91   _IPH            DATA 0xb7
+0000             92   _IE2            DATA 0xb4
+0000             93   _IP2            DATA 0xb5
+0000             94   _IPH2           DATA 0xb6
+0000             95   _T2CCA          DATA 0xd1
+0000             96   _T2CCL          DATA 0xd2
+0000             97   _T2CCH          DATA 0xd3
+0000             98   _T2CCC          DATA 0xd4
+0000             99   _T2CCF          DATA 0xd5
+0000            100   _PCON           DATA 0x87
+0000            101   _CLKREG         DATA 0x8f
+0000            102   _GPMOD          DATA 0x9a
+0000            103   _GPLS           DATA 0x9b
+0000            104   _GPIEN          DATA 0x9c
+0000            105   _GPIF           DATA 0x9d
+0000            106   _SPSR           DATA 0xe8
+0000            107   _SPCR           DATA 0xe9
+0000            108   _SPDR           DATA 0xea
+0000            109   _MEMCON         DATA 0x96
+0000            110   _ACSRA          DATA 0x97
+0000            111   _ACSRB          DATA 0x9f
+0000            112   _AREF           DATA 0xaf
+0000            113   ;--------------------------------------------------------
+0000            114   ; special function bits
+0000            115   ;--------------------------------------------------------
+0000            116   _P1_7           BIT 0x97
+0000            117   _P1_6           BIT 0x96
+0000            118   _P1_5           BIT 0x95
+0000            119   _P1_4           BIT 0x94
+0000            120   _P1_3           BIT 0x93
+0000            121   _P1_2           BIT 0x92
+0000            122   _P1_1           BIT 0x91
+0000            123   _P1_0           BIT 0x90
+0000            124   _SCK            BIT 0x97
+0000            125   _MISO           BIT 0x96
+0000            126   _MOSI           BIT 0x95
+0000            127   _SSB            BIT 0x94
+0000            128   _T2EX           BIT 0x91
+0000            129   _T2             BIT 0x90
+0000            130   _P2_7           BIT 0xa7
+0000            131   _P2_6           BIT 0xa6
+0000            132   _P2_5           BIT 0xa5
+0000            133   _P2_4           BIT 0xa4
+0000            134   _P2_3           BIT 0xa3
+0000            135   _P2_2           BIT 0xa2
+0000            136   _P2_1           BIT 0xa1
+0000            137   _P2_0           BIT 0xa0
+0000            138   _CCD            BIT 0xa3
+0000            139   _CCC            BIT 0xa2
+0000            140   _CCB            BIT 0xa1
+0000            141   _CCA            BIT 0xa0
+0000            142   _P3_7           BIT 0xb7
+0000            143   _P3_6           BIT 0xb6
+0000            144   _P3_5           BIT 0xb5
+0000            145   _P3_4           BIT 0xb4
+0000            146   _P3_3           BIT 0xb3
+0000            147   _P3_2           BIT 0xb2
+0000            148   _P3_1           BIT 0xb1
+0000            149   _P3_0           BIT 0xb0
+0000            150   _T1             BIT 0xb5
+0000            151   _T0             BIT 0xb4
+0000            152   _INT1           BIT 0xb3
+0000            153   _INT0           BIT 0xb2
+0000            154   _TXD            BIT 0xb1
+0000            155   _RXD            BIT 0xb0
+0000            156   _P4_7           BIT 0xc7
+0000            157   _P4_6           BIT 0xc6
+0000            158   _P4_5           BIT 0xc5
+0000            159   _P4_4           BIT 0xc4
+0000            160   _P4_3           BIT 0xc3
+0000            161   _P4_2           BIT 0xc2
+0000            162   _P4_1           BIT 0xc1
+0000            163   _P4_0           BIT 0xc0
+0000            164   _XTAL2          BIT 0xc1
+0000            165   _XTAL1          BIT 0xc0
+0000            166   _CY             BIT 0xd7
+0000            167   _AC             BIT 0xd6
+0000            168   _F0             BIT 0xd5
+0000            169   _RS1            BIT 0xd4
+0000            170   _RS0            BIT 0xd3
+0000            171   _OV             BIT 0xd2
+0000            172   _UD             BIT 0xd1
+0000            173   _P              BIT 0xd0
+0000            174   _ACC_7          BIT 0xe7
+0000            175   _ACC_6          BIT 0xe6
+0000            176   _ACC_5          BIT 0xe5
+0000            177   _ACC_4          BIT 0xe4
+0000            178   _ACC_3          BIT 0xe3
+0000            179   _ACC_2          BIT 0xe2
+0000            180   _ACC_1          BIT 0xe1
+0000            181   _ACC_0          BIT 0xe0
+0000            182   _B_7            BIT 0xf7
+0000            183   _B_6            BIT 0xf6
+0000            184   _B_5            BIT 0xf5
+0000            185   _B_4            BIT 0xf4
+0000            186   _B_3            BIT 0xf3
+0000            187   _B_2            BIT 0xf2
+0000            188   _B_1            BIT 0xf1
+0000            189   _B_0            BIT 0xf0
+0000            190   _TF1            BIT 0x8f
+0000            191   _TR1            BIT 0x8e
+0000            192   _TF0            BIT 0x8d
+0000            193   _TR0            BIT 0x8c
+0000            194   _IE1            BIT 0x8b
+0000            195   _IT1            BIT 0x8a
+0000            196   _IE0            BIT 0x89
+0000            197   _IT0            BIT 0x88
+0000            198   _TF2            BIT 0xcf
+0000            199   _EXF2           BIT 0xce
+0000            200   _RCLK           BIT 0xcd
+0000            201   _TCLK           BIT 0xcc
+0000            202   _EXEN2          BIT 0xcb
+0000            203   _TR2            BIT 0xca
+0000            204   _C_T2           BIT 0xc9
+0000            205   _CP_RL2         BIT 0xc8
+0000            206   _SM0            BIT 0x9f
+0000            207   _FE             BIT 0x9f
+0000            208   _SM1            BIT 0x9e
+0000            209   _SM2            BIT 0x9d
+0000            210   _REN            BIT 0x9c
+0000            211   _TB8            BIT 0x9b
+0000            212   _RB8            BIT 0x9a
+0000            213   _TI             BIT 0x99
+0000            214   _RI             BIT 0x98
+0000            215   _EA             BIT 0xaf
+0000            216   _EC             BIT 0xae
+0000            217   _ET2            BIT 0xad
+0000            218   _ES             BIT 0xac
+0000            219   _ET1            BIT 0xab
+0000            220   _EX1            BIT 0xaa
+0000            221   _ET0            BIT 0xa9
+0000            222   _EX0            BIT 0xa8
+0000            223   _PC             BIT 0xbe
+0000            224   _PT2            BIT 0xbd
+0000            225   _PS             BIT 0xbc
+0000            226   _PT1            BIT 0xbb
+0000            227   _PX1            BIT 0xba
+0000            228   _PT0            BIT 0xb9
+0000            229   _PX0            BIT 0xb8
+0000            230   _SPIF           BIT 0xef
+0000            231   _WCOL           BIT 0xee
+0000            232   _MODF           BIT 0xed
+0000            233   _TXE            BIT 0xec
+0000            234   _SSIG           BIT 0xea
+0000            235   _DISSO          BIT 0xe9
+0000            236   _ENH            BIT 0xe8
+0000            237   ;--------------------------------------------------------
+0000            238   ; overlayable register banks
+0000            239   ;--------------------------------------------------------
+0000            240            rbank0 segment data overlay
+0000            241   ;--------------------------------------------------------
+0000            242   ; internal ram data
+0000            243   ;--------------------------------------------------------
+0000            244            rseg R_DSEG
+0000            245   _pwmcount:
+0000            246            ds 1
+0001            247   _pwmL:
+0001            248            ds 1
+0002            249   _pwmR:
+0002            250            ds 1
+0003            251   _leftInd:
+0003            252            ds 2
+0005            253   _rightInd:
+0005            254            ds 2
+0007            255   ;--------------------------------------------------------
+0007            256   ; overlayable items in internal ram 
+0007            257   ;--------------------------------------------------------
+0000            258            rseg    R_OSEG
+0000            259            rseg    R_OSEG
+0000            260   ;--------------------------------------------------------
+0000            261   ; indirectly addressable internal ram data
+0000            262   ;--------------------------------------------------------
+0000            263            rseg R_ISEG
+0000            264   ;--------------------------------------------------------
+0000            265   ; absolute internal ram data
+0000            266   ;--------------------------------------------------------
+0000            267            DSEG
+0000            268   ;--------------------------------------------------------
+0000            269   ; bit data
+0000            270   ;--------------------------------------------------------
+0000            271            rseg R_BSEG
+0000            272   ;--------------------------------------------------------
+0000            273   ; paged external ram data
+0000            274   ;--------------------------------------------------------
+0000            275            rseg R_XSEG
+0000            276   ;--------------------------------------------------------
+0000            277   ; external ram data
+0000            278   ;--------------------------------------------------------
+0000            279            rseg R_XSEG
+0000            280   ;--------------------------------------------------------
+0000            281   ; absolute external ram data
+0000            282   ;--------------------------------------------------------
+0000            283            XSEG
+0000            284   ;--------------------------------------------------------
+0000            285   ; external initialized ram data
+0000            286   ;--------------------------------------------------------
+0000            287            rseg R_IXSEG
+0000            288            rseg R_HOME
+0000            289            rseg R_GSINIT
+0000            290            rseg R_CSEG
+0000            291   ;--------------------------------------------------------
+0000            292   ; Reset entry point and interrupt vectors
+0000            293   ;--------------------------------------------------------
+0000            294            CSEG at 0x0000
+0000 020100     295            ljmp    _crt0
+000B            296            CSEG at 0x000b
+000B 020100     297            ljmp    _pwmcounter
+000E            298   ;--------------------------------------------------------
+000E            299   ; global & static initialisations
+000E            300   ;--------------------------------------------------------
+0000            301            rseg R_HOME
+0000            302            rseg R_GSINIT
+0000            303            rseg R_GSINIT
+0000            304   ;--------------------------------------------------------
+0000            305   ; data variables initialization
+0000            306   ;--------------------------------------------------------
+0000            307            rseg R_DINIT
+0000            308            ; The linker places a 'ret' at the end of segment R_DINIT.
+0000            309   ;--------------------------------------------------------
+0000            310   ; code
+0000            311   ;--------------------------------------------------------
+0000            312            rseg R_CSEG
+0000            313   ;------------------------------------------------------------
+0000            314   ;Allocation info for local variables in function 'InitTimer0'
+0000            315   ;------------------------------------------------------------
+0000            316   ;------------------------------------------------------------
+0000            317   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:24: void InitTimer0 (void)
+0000            318   ;        -----------------------------------------
+0000            319   ;         function InitTimer0
+0000            320   ;        -----------------------------------------
+0000            321   _InitTimer0:
+0000            322            using   0
+0000            323   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:27: TR0=0; // Stop timer 0
+0000 C28C       324            clr     _TR0
+0002            325   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:28: TMOD=(TMOD&0xf0)|0x01; // 16-bit timer
+0002 74F0       326            mov     a,#0xF0
+0004 5589       327            anl     a,_TMOD
+0006 4401       328            orl     a,#0x01
+0008 F589       329            mov     _TMOD,a
+000A            330   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:29: RH0=TIMER0_RELOAD_VALUE/0x100;
+000A 7594FE     331            mov     _RH0,#0xFE
+000D            332   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:30: RL0=TIMER0_RELOAD_VALUE%0x100;
+000D 759290     333            mov     _RL0,#0x90
+0010            334   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:31: TR0=1; // Start timer 0 (bit 4 in TCON)
+0010 D28C       335            setb    _TR0
+0012            336   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:32: ET0=1; // Enable timer 0 interrupt
+0012 D2A9       337            setb    _ET0
+0014            338   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:33: EA=1;  // Enable global interrupts
+0014 D2AF       339            setb    _EA
+0016 22         340            ret
+0017            341   ;------------------------------------------------------------
+0017            342   ;Allocation info for local variables in function 'SPIWrite'
+0017            343   ;------------------------------------------------------------
+0017            344   ;value                     Allocated to registers r2 
+0017            345   ;------------------------------------------------------------
+0017            346   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:36: void SPIWrite (unsigned char value)
+0017            347   ;        -----------------------------------------
+0017            348   ;         function SPIWrite
+0017            349   ;        -----------------------------------------
+0017            350   _SPIWrite:
+0017 AA82       351            mov     r2,dpl
+0019            352   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:38: SPIF=00;
+0019 C2EF       353            clr     _SPIF
+001B            354   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:39: SPDR=value;
+001B 8AEA       355            mov     _SPDR,r2
+001D            356   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:40: while (SPIF==0); // Wait for transmission to end
+001D            357   L003001?:
+001D 30EFD8     358            jnb     _SPIF,L003001?
+0020 22         359            ret
+0021            360   ;------------------------------------------------------------
+0021            361   ;Allocation info for local variables in function 'GetADC'
+0021            362   ;------------------------------------------------------------
+0021            363   ;channel                   Allocated to registers r2 
+0021            364   ;adc                       Allocated to registers r2 r3 
+0021            365   ;------------------------------------------------------------
+0021            366   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:43: unsigned int GetADC (unsigned char channel) // Read 10 bits from the MCP3004 ADC converter
+0021            367   ;        -----------------------------------------
+0021            368   ;         function GetADC
+0021            369   ;        -----------------------------------------
+0021            370   _GetADC:
+0021 AA82       371            mov     r2,dpl
+0023            372   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:47: SSIG=1;
+0023 D2EA       373            setb    _SSIG
+0025            374   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:48: SPCR=SPE|MSTR|CPOL|CPHA|SPR1|SPR0; // Mode (1,1): see figure 6--2 of MCP3004 datasheet.
+0025 75E95F     375            mov     _SPCR,#0x5F
+0028            376   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:49: P1_4=0;                            // Activate the MCP3004 ADC.
+0028 C294       377            clr     _P1_4
+002A            378   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:50: SPIWrite(0x01);                    // Send the start bit.
+002A 758201     379            mov     dpl,#0x01
+002D C002       380            push    ar2
+002F 120100     381            lcall   _SPIWrite
+0032 D002       382            pop     ar2
+0034            383   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:51: SPIWrite((channel*0x10)|0x80);     // Send single/diff* bit, D2, D1, and D0 bits.
+0034 EA         384            mov     a,r2
+0035 C4         385            swap    a
+0036 54F0       386            anl     a,#0xf0
+0038 FA         387            mov     r2,a
+0039 7480       388            mov     a,#0x80
+003B 4A         389            orl     a,r2
+003C F582       390            mov     dpl,a
+003E 120100     391            lcall   _SPIWrite
+0041            392   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:52: adc=((SPDR & 0x03)*0x100);         // SPDR has the 2--most significant bits of volt.
+0041 7403       393            mov     a,#0x03
+0043 55EA       394            anl     a,_SPDR
+0045 FB         395            mov     r3,a
+0046 7A00       396            mov     r2,#0x00
+0048            397   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:53: SPIWrite(0x55);                    // It doesn't matter what we send now.
+0048 758255     398            mov     dpl,#0x55
+004B C002       399            push    ar2
+004D C003       400            push    ar3
+004F 120100     401            lcall   _SPIWrite
+0052 D003       402            pop     ar3
+0054 D002       403            pop     ar2
+0056            404   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:54: adc+=SPDR;                         // SPDR contains the low part of the result.
+0056 ACEA       405            mov     r4,_SPDR
+0058 7D00       406            mov     r5,#0x00
+005A EC         407            mov     a,r4
+005B 2A         408            add     a,r2
+005C FA         409            mov     r2,a
+005D ED         410            mov     a,r5
+005E 3B         411            addc    a,r3
+005F FB         412            mov     r3,a
+0060            413   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:55: P1_4=1;                            // Deactivate the MCP3004 ADC.
+0060 D294       414            setb    _P1_4
+0062            415   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:56: return adc;
+0062 8A82       416            mov     dpl,r2
+0064 8B83       417            mov     dph,r3
+0066 22         418            ret
+0067            419   ;------------------------------------------------------------
+0067            420   ;Allocation info for local variables in function 'wait'
+0067            421   ;------------------------------------------------------------
+0067            422   ;time                      Allocated to registers r2 r3 
+0067            423   ;------------------------------------------------------------
+0067            424   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:59: void wait(int time)
+0067            425   ;        -----------------------------------------
+0067            426   ;         function wait
+0067            427   ;        -----------------------------------------
+0067            428   _wait:
+0067 AA82       429            mov     r2,dpl
+0069 AB83       430            mov     r3,dph
+006B            431   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:61: while(--time);
+006B            432   L005001?:
+006B 1A         433            dec     r2
+006C BAFF98     434            cjne    r2,#0xff,L005008?
+006F 1B         435            dec     r3
+0070            436   L005008?:
+0070 EA         437            mov     a,r2
+0071 4B         438            orl     a,r3
+0072 7001       439            jnz     L005001?
+0074 22         440            ret
+0075            441   ;------------------------------------------------------------
+0075            442   ;Allocation info for local variables in function 'LineFollow'
+0075            443   ;------------------------------------------------------------
+0075            444   ;------------------------------------------------------------
+0075            445   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:64: void LineFollow()
+0075            446   ;        -----------------------------------------
+0075            447   ;         function LineFollow
+0075            448   ;        -----------------------------------------
+0075            449   _LineFollow:
+0075            450   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:66: leftInd = GetADC(INDUCTOR_LEFT_CH);
+0075 758200     451            mov     dpl,#0x00
+0078 120100     452            lcall   _GetADC
+007B 8582F0     453            mov     _leftInd,dpl
+007E 8583F1     454            mov     (_leftInd + 1),dph
+0081            455   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:67: rightInd = GetADC(INDUCTOR_RIGHT_CH);
+0081 758201     456            mov     dpl,#0x01
+0084 120100     457            lcall   _GetADC
+0087 8582B0     458            mov     _rightInd,dpl
+008A 8583B1     459            mov     (_rightInd + 1),dph
+008D            460   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:69: if(leftInd > rightInd)
+008D C3         461            clr     c
+008E E5B0       462            mov     a,_rightInd
+0090 95F0       463            subb    a,_leftInd
+0092 E5B1       464            mov     a,(_rightInd + 1)
+0094 95F1       465            subb    a,(_leftInd + 1)
+0096 5001       466            jnc     L006002?
+0098            467   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:71: pwmL = 100;
+0098 757064     468            mov     _pwmL,#0x64
+009B            469   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:72: pwmR = 0;
+009B 753000     470            mov     _pwmR,#0x00
+009E 22         471            ret
+009F            472   L006002?:
+009F            473   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:76: pwmL = 0;
+009F 757000     474            mov     _pwmL,#0x00
+00A2            475   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:77: pwmR = 100;                 
+00A2 753064     476            mov     _pwmR,#0x64
+00A5 22         477            ret
+00A6            478   ;------------------------------------------------------------
+00A6            479   ;Allocation info for local variables in function 'pwmcounter'
+00A6            480   ;------------------------------------------------------------
+00A6            481   ;------------------------------------------------------------
+00A6            482   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:83: void pwmcounter (void) interrupt 1
+00A6            483   ;        -----------------------------------------
+00A6            484   ;         function pwmcounter
+00A6            485   ;        -----------------------------------------
+00A6            486   _pwmcounter:
+00A6 C0E0       487            push    acc
+00A8 C0D0       488            push    psw
+00AA 75D000     489            mov     psw,#0x00
+00AD            490   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:85: if(++pwmcount>99) pwmcount=0;
+00AD 05B0       491            inc     _pwmcount
+00AF E5B0       492            mov     a,_pwmcount
+00B1 249C       493            add     a,#0xff - 0x63
+00B3 5001       494            jnc     L007002?
+00B5 75B000     495            mov     _pwmcount,#0x00
+00B8            496   L007002?:
+00B8            497   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:86: P1_0=(pwmL>pwmcount)?1:0;
+00B8 C3         498            clr     c
+00B9 E5B0       499            mov     a,_pwmcount
+00BB 9570       500            subb    a,_pwmL
+00BD 9290       501            mov     _P1_0,c
+00BF            502   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:87: P2_0=(pwmR>pwmcount)?1:0;   
+00BF C3         503            clr     c
+00C0 E5B0       504            mov     a,_pwmcount
+00C2 9530       505            subb    a,_pwmR
+00C4 92A0       506            mov     _P2_0,c
+00C6 D0D0       507            pop     psw
+00C8 D0E0       508            pop     acc
+00CA 32         509            reti
+00CB            510   ;        eliminated unneeded push/pop dpl
+00CB            511   ;        eliminated unneeded push/pop dph
+00CB            512   ;        eliminated unneeded push/pop b
+00CB            513   ;------------------------------------------------------------
+00CB            514   ;Allocation info for local variables in function 'main'
+00CB            515   ;------------------------------------------------------------
+00CB            516   ;------------------------------------------------------------
+00CB            517   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:90: void main (void)
+00CB            518   ;        -----------------------------------------
+00CB            519   ;         function main
+00CB            520   ;        -----------------------------------------
+00CB            521   _main:
+00CB            522   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:92: setbaud_timer2(TIMER_2_RELOAD); // Initialize serial port using timer 2 
+00CB 90FFFE     523            mov     dptr,#0xFFFE
+00CE 120100     524            lcall   _setbaud_timer2
+00D1            525   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:93: InitTimer0(); // Initialize timer 0 and its interrupt
+00D1 120100     526            lcall   _InitTimer0
+00D4            527   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:94: pwmL=0; //0% duty cycle wave at 100Hz
+00D4 757000     528            mov     _pwmL,#0x00
+00D7            529   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:95: pwmR=0;     
+00D7 753000     530            mov     _pwmR,#0x00
+00DA            531   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:97: while(1)
+00DA            532   L008002?:
+00DA            533   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:99: LineFollow();
+00DA 120100     534            lcall   _LineFollow
+00DD            535   ;        C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:100: wait(10000);       
+00DD 902710     536            mov     dptr,#0x2710
+00E0 120100     537            lcall   _wait
+00E3 8001       538            sjmp    L008002?
+00E5            539            rseg R_CSEG
+00E5            540   
+0000            541            rseg R_CONST
+0000            542   
+0000            543            rseg R_XINIT
+0000            544   
+000E            545            CSEG
+000E            546   
+000E            547   end
