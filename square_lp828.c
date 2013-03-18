@@ -13,6 +13,8 @@
 #define INDUCTOR_LEFT_CH 0
 #define INDUCTOR_RIGHT_CH 1
 
+#define CYC_PER_MS 2500
+
 //These variables are used in the ISR
 volatile unsigned char pwmcount;
 volatile unsigned char pwmL;
@@ -20,6 +22,9 @@ volatile unsigned char pwmR;
 
 volatile unsigned int leftInd;
 volatile unsigned int rightInd;
+
+volatile int error;
+volatile int gain;
 
 void InitTimer0 (void)
 {
@@ -56,25 +61,50 @@ unsigned int GetADC (unsigned char channel) // Read 10 bits from the MCP3004 ADC
 	return adc;
 }
 
-void wait(int time)
+void wait(int time) //10000 = 5ms
 {
 	while(--time);
 }
 
-void LineFollow()
+void OnOffControl()
 {
 	leftInd = GetADC(INDUCTOR_LEFT_CH);
 	rightInd = GetADC(INDUCTOR_RIGHT_CH);
 	
 	if(leftInd > rightInd)
 	{
-		pwmL = 100;
-		pwmR = 0;
+		pwmL = 0;
+		pwmR = 100;
 	}
 	else
 	{
-		pwmL = 0;
-		pwmR = 100;		
+		pwmL = 100;
+		pwmR = 0;		
+	}
+}
+
+#define KP 0.25
+
+void LineFollow()
+{
+	leftInd = GetADC(INDUCTOR_LEFT_CH);
+	rightInd = GetADC(INDUCTOR_RIGHT_CH);
+	
+	error = leftInd - rightInd;
+	//If error is positive, favour the right motor; if negative, favour the left motor
+	
+	gain = KP*error;
+	
+	if(error > 0)
+	{
+		pwmL = (gain<100)?100-gain:0;
+		pwmR = 100;
+	}
+	else
+	{
+		gain *= -1;
+		pwmL = 100;
+		pwmR = (gain<100)?100-gain:0;	
 	}
 }
 
@@ -84,20 +114,20 @@ void pwmcounter (void) interrupt 1
 {
 	if(++pwmcount>99) pwmcount=0;
 	P1_0=(pwmL>pwmcount)?1:0;
-	P2_0=(pwmR>pwmcount)?1:0;	
+	P1_1=(pwmR>pwmcount)?1:0;	
 }
 
 void main (void)
 {
     setbaud_timer2(TIMER_2_RELOAD); // Initialize serial port using timer 2 
 	InitTimer0(); // Initialize timer 0 and its interrupt
-	pwmL=0; //0% duty cycle wave at 100Hz
+	pwmL=0; //% duty cycle wave at 100Hz
 	pwmR=0;	
 	
 	while(1)
 	{
-		LineFollow();
-		wait(10000);	
+		OnOffControl();
+		wait(10000);
 	}
 }
 

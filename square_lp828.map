@@ -1,21 +1,41 @@
 Modules linked:
    'square_lp828' from 'square_lp828.obj'
+   'fs2sint' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+   'fsmul' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
    'setbaud2' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libc51.lib'
    'crt0' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libc51.lib'
+   'sint2fs' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+   'fs2slong' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+   'fsreturnval' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+   'fsnormalize' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+   'fsget2args' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
    'startup' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libc51.lib'
+   'slong2fs' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+   'fsget1arg' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+   'fsrshift' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
 
 Memory use per module linked:
-       square_lp828: C:00229 D:007 I:000 B:000 X:00000
+       square_lp828: C:00418 D:011 I:000 B:000 X:00000
+            fs2sint: C:00052 D:000 I:000 B:000 X:00000
+              fsmul: C:00163 D:000 I:000 B:000 X:00000
            setbaud2: C:00017 D:000 I:000 B:000 X:00000
                crt0: C:00089 D:000 I:000 B:000 X:00000
+            sint2fs: C:00013 D:000 I:000 B:000 X:00000
+           fs2slong: C:00091 D:000 I:000 B:000 X:00000
+        fsreturnval: C:00079 D:000 I:000 B:000 X:00000
+        fsnormalize: C:00051 D:000 I:000 B:000 X:00000
+         fsget2args: C:00046 D:000 I:000 B:000 X:00000
             startup: C:00004 D:000 I:000 B:000 X:00000
+           slong2fs: C:00045 D:000 I:000 B:000 X:00000
+          fsget1arg: C:00018 D:000 I:000 B:000 X:00000
+           fsrshift: C:00067 D:000 I:000 B:000 X:00000
            ABSOLUTE: C:00007 D:000 I:000 B:000 X:00000
 ------------------------------------------------------
-             Totals: C:00346 D:007 I:000 B:000 X:00000
+             Totals: C:01160 D:011 I:000 B:000 X:00000
 
 INTERMAL RAM map (see legend below):
-00: 0 0 0 0 0 0 0 0 a a a a a a a . 
-10: . . . . . . . . . . . . . . . . 
+00: 0 0 0 0 0 0 0 0 a a a a a a a a 
+10: a a a . . . . . . . . . . . . . 
 20: . . . . . . . . . . . . . . . . 
 30: . . . . . . . . . . . . . . . . 
 40: . . . . . . . . . . . . . . . . 
@@ -50,7 +70,7 @@ BIT map:
 70: . . . . . . . . . . . . . . . . 
 
 CODE usage map:
-0000: 249 097 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+0000: 249 256 256 256 143 000 000 000 000 000 000 000 000 000 000 000 
 1000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 2000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 3000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
@@ -66,7 +86,7 @@ C000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000
 D000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 E000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 F000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
-Total: 346 bytes
+Total: 1160 bytes
 
 XDATA usage map:
 0000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
@@ -91,9 +111,9 @@ Base Segments:
    BIT_BANK=D:0000, size=0000
    R_BSEG=B:0000, size=0000
    R_CONST=C:0000, size=0000
-   R_CSEG=C:0067, size=00FA
+   R_CSEG=C:0067, size=0428
    R_DINIT=C:0003, size=0000
-   R_DSEG=D:0000, size=0007
+   R_DSEG=D:0000, size=000B
    R_GSINIT=C:000E, size=0059
    R_HOME=C:0000, size=0000
    R_ISEG=I:0000, size=0000
@@ -106,20 +126,31 @@ Base Segments:
 Module Segments:
    CSEG=C:0000, size=0007
    crt0:R_GSINIT=C:000E, size=0059
-   setbaud2:R_CSEG=C:014C, size=0011
-   square_lp828:R_CSEG=C:0067, size=00E5
-   square_lp828:R_DSEG=D:0008, size=0007
-   startup:R_CSEG=C:015D, size=0004
+   fs2sint:R_CSEG=C:0209, size=0034
+   fs2slong:R_CSEG=C:02FE, size=005B
+   fsget1arg:R_CSEG=C:043A, size=0012
+   fsget2args:R_CSEG=C:03DB, size=002E
+   fsmul:R_CSEG=C:023D, size=00A3
+   fsnormalize:R_CSEG=C:03A8, size=0033
+   fsreturnval:R_CSEG=C:0359, size=004F
+   fsrshift:R_CSEG=C:044C, size=0043
+   setbaud2:R_CSEG=C:02E0, size=0011
+   sint2fs:R_CSEG=C:02F1, size=000D
+   slong2fs:R_CSEG=C:040D, size=002D
+   square_lp828:R_CSEG=C:0067, size=01A2
+   square_lp828:R_DSEG=D:0008, size=000B
+   startup:R_CSEG=C:0409, size=0004
 
 Public symbols:
    _GetADC=C:0088
    _InitTimer0=C:0067
-   _LineFollow=C:00DC
+   _LineFollow=C:010D
+   _OnOffControl=C:00DC
    _R_BSEG_size=L:0000
    _R_BSEG_start=L:0000
    _R_CONST_size=L:0000
    _R_CONST_start=L:0000
-   _R_CSEG_size=L:00FA
+   _R_CSEG_size=L:0428
    _R_CSEG_start=L:0067
    _R_DINIT_size=L:0000
    _R_DINIT_start=L:0003
@@ -138,21 +169,39 @@ Public symbols:
    _R_XSEG_size=L:0000
    _R_XSEG_start=L:0000
    _SPIWrite=C:007E
-   __c51_external_startup=C:015D
+   ___fs2sint=C:0209
+   ___fs2slong=C:02FE
+   ___fsmul=C:023D
+   ___sint2fs=C:02F1
+   ___slong2fs=C:040D
+   __c51_external_startup=C:0409
    _crt0=C:000E
-   _dummy_name_crt0=C:015D
+   _dummy_name_crt0=C:02F1
+   _error=D:000F
+   _gain=D:0011
    _leftInd=D:000B
-   _main=C:0132
+   _main=C:01EF
    _pwmL=D:0009
    _pwmR=D:000A
    _pwmcount=D:0008
-   _pwmcounter=C:010D
+   _pwmcounter=C:01CA
    _rightInd=D:000D
-   _setbaud_timer2=C:014C
-   _square_lp828_R_DSEG_size=L:0007
+   _setbaud_timer2=C:02E0
+   _square_lp828_R_DSEG_size=L:000B
    _square_lp828_R_DSEG_start=L:0008
-   _stack_start=L:000F
+   _stack_start=L:0013
    _wait=C:00CE
+   fs_direct_return=C:0382
+   fs_normalize_a=C:03A8
+   fs_return_inf=C:0390
+   fs_return_nan=C:039D
+   fs_return_zero=C:037A
+   fs_round_and_return=C:0359
+   fs_rshift_a=C:044C
+   fs_zerocheck_return=C:0371
+   fsgetarg=C:043A
+   fsgetargs=C:03DB
+   slong2fs_doit=C:0416
 
 Local symbols:
    crt0:XClearLoop?done?=C:005F
@@ -162,9 +211,61 @@ Local symbols:
    crt0:__c51_init_data=C:001B
    crt0:__c51_program_startup=C:0062
    crt0:forever?home?=C:0065
+   fs2sint:_dummy=C:0209
+   fs2sint:fs2sint_clr_a=C:0217
+   fs2sint:fs2sint_maxval_neg=C:0229
+   fs2sint:fs2sint_maxval_pos=C:0239
+   fs2sint:fs2sint_neg=C:021B
+   fs2sint:fs2sint_not_zero=C:0218
+   fs2sint:fs2sint_pos=C:022D
+   fs2slong:_dummy=C:02FE
+   fs2slong:fs2slong_clr_a=C:0331
+   fs2slong:fs2slong_int_ok=C:0308
+   fs2slong:fs2slong_maxval=C:0341
+   fs2slong:fs2slong_maxval_neg=C:0344
+   fs2slong:fs2slong_maxval_pos=C:034E
+   fs2slong:fs2slong_neg=C:0310
+   fs2slong:fs2slong_not_zero=C:0332
+   fs2slong:fs2slong_pos=C:0336
+   fsget1arg:L00001?=C:0447
+   fsget1arg:_dummy=C:043A
+   fsget2args:L00001?=C:03E8
+   fsget2args:L00002?=C:0404
+   fsget2args:_dummy=C:03DB
+   fsmul:L00001?=C:0243
+   fsmul:L00002?=C:0246
+   fsmul:L00003?=C:024E
+   fsmul:L00004?=C:0256
+   fsmul:L00005?=C:025E
+   fsmul:L00006?=C:0269
+   fsmul:L00007?=C:0271
+   fsmul:L00010?=C:02DD
+   fsmul:_dummy=C:023D
+   fsnormalize:L00001?=C:03AB
+   fsnormalize:L00002?=C:03BD
+   fsnormalize:L00003?=C:03BE
+   fsnormalize:L00004?=C:03C2
+   fsnormalize:L00005?=C:03C9
+   fsnormalize:L00006?=C:03D8
+   fsnormalize:_dummy=C:03A8
+   fsreturnval:L00001?=C:035F
+   fsreturnval:_dummy=C:0359
+   fsrshift:L00001?=C:0455
+   fsrshift:L00003?=C:047A
+   fsrshift:L00005?=C:047F
+   fsrshift:L00020?=C:048E
+   fsrshift:_dummy=C:044C
+   sint2fs:_dummy=C:02F1
+   slong2fs:_dummy=C:040D
+   slong2fs:slong2fs_positive=C:0434
    square_lp828:L003001?=C:0084
    square_lp828:L005001?=C:00D2
    square_lp828:L005008?=C:00D7
    square_lp828:L006002?=C:0106
-   square_lp828:L007002?=C:011F
-   square_lp828:L008002?=C:0141
+   square_lp828:L007002?=C:01A1
+   square_lp828:L007006?=C:0199
+   square_lp828:L007007?=C:019B
+   square_lp828:L007008?=C:01C5
+   square_lp828:L007009?=C:01C7
+   square_lp828:L008002?=C:01DC
+   square_lp828:L009002?=C:01FE
