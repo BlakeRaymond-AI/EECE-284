@@ -13,7 +13,8 @@
 #define INDUCTOR_LEFT_CH 0
 #define INDUCTOR_RIGHT_CH 1
 
-#define CYC_PER_MS 2500
+#define MOTOR_LEFT_PIN P1_0
+#define MOTOR_RIGHT_PIN P1_1
 
 //These variables are used in the ISR
 volatile unsigned char pwmcount;
@@ -113,8 +114,8 @@ void LineFollow()
 void pwmcounter (void) interrupt 1
 {
 	if(++pwmcount>99) pwmcount=0;
-	P1_0=(pwmL>pwmcount)?1:0;
-	P1_1=(pwmR>pwmcount)?1:0;	
+	MOTOR_LEFT_PIN=(pwmL>pwmcount)?1:0;
+	MOTOR_RIGHT_PIN=(pwmR>pwmcount)?1:0;	
 }
 
 void main (void)
