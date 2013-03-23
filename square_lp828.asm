@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by C51
 ; Version 1.0.0 #1034 (Dec 12 2012) (MSVC)
-; This file was generated Sun Mar 17 17:53:21 2013
+; This file was generated Tue Mar 19 12:11:55 2013
 ;--------------------------------------------------------
 $name square_lp828
 $optc51 --model-small
@@ -25,11 +25,14 @@ $optc51 --model-small
 	public _main
 	public _pwmcounter
 	public _LineFollow
+	public _allocate2D
+	public _test_fcn
 	public _OnOffControl
 	public _wait
 	public _GetADC
 	public _SPIWrite
 	public _InitTimer0
+	public _allocate2D_PARM_2
 	public _gain
 	public _error
 	public _rightInd
@@ -259,6 +262,16 @@ _error:
 	ds 2
 _gain:
 	ds 2
+_allocate2D_PARM_2:
+	ds 2
+_allocate2D_rows_1_54:
+	ds 2
+_allocate2D_arr2D_1_55:
+	ds 3
+_allocate2D_i_1_55:
+	ds 2
+_allocate2D_sloc0_1_0:
+	ds 2
 ;--------------------------------------------------------
 ; overlayable items in internal ram 
 ;--------------------------------------------------------
@@ -321,28 +334,28 @@ _gain:
 ;Allocation info for local variables in function 'InitTimer0'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:30: void InitTimer0 (void)
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:34: void InitTimer0 (void)
 ;	-----------------------------------------
 ;	 function InitTimer0
 ;	-----------------------------------------
 _InitTimer0:
 	using	0
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:33: TR0=0; // Stop timer 0
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:37: TR0=0; // Stop timer 0
 	clr	_TR0
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:34: TMOD=(TMOD&0xf0)|0x01; // 16-bit timer
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:38: TMOD=(TMOD&0xf0)|0x01; // 16-bit timer
 	mov	a,#0xF0
 	anl	a,_TMOD
 	orl	a,#0x01
 	mov	_TMOD,a
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:35: RH0=TIMER0_RELOAD_VALUE/0x100;
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:39: RH0=TIMER0_RELOAD_VALUE/0x100;
 	mov	_RH0,#0xFE
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:36: RL0=TIMER0_RELOAD_VALUE%0x100;
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:40: RL0=TIMER0_RELOAD_VALUE%0x100;
 	mov	_RL0,#0x90
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:37: TR0=1; // Start timer 0 (bit 4 in TCON)
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:41: TR0=1; // Start timer 0 (bit 4 in TCON)
 	setb	_TR0
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:38: ET0=1; // Enable timer 0 interrupt
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:42: ET0=1; // Enable timer 0 interrupt
 	setb	_ET0
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:39: EA=1;  // Enable global interrupts
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:43: EA=1;  // Enable global interrupts
 	setb	_EA
 	ret
 ;------------------------------------------------------------
@@ -350,17 +363,17 @@ _InitTimer0:
 ;------------------------------------------------------------
 ;value                     Allocated to registers r2 
 ;------------------------------------------------------------
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:42: void SPIWrite (unsigned char value)
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:46: void SPIWrite (unsigned char value)
 ;	-----------------------------------------
 ;	 function SPIWrite
 ;	-----------------------------------------
 _SPIWrite:
 	mov	r2,dpl
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:44: SPIF=00;
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:48: SPIF=00;
 	clr	_SPIF
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:45: SPDR=value;
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:49: SPDR=value;
 	mov	_SPDR,r2
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:46: while (SPIF==0); // Wait for transmission to end
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:50: while (SPIF==0); // Wait for transmission to end
 L003001?:
 	jnb	_SPIF,L003001?
 	ret
@@ -370,24 +383,24 @@ L003001?:
 ;channel                   Allocated to registers r2 
 ;adc                       Allocated to registers r2 r3 
 ;------------------------------------------------------------
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:49: unsigned int GetADC (unsigned char channel) // Read 10 bits from the MCP3004 ADC converter
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:53: unsigned int GetADC (unsigned char channel) // Read 10 bits from the MCP3004 ADC converter
 ;	-----------------------------------------
 ;	 function GetADC
 ;	-----------------------------------------
 _GetADC:
 	mov	r2,dpl
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:53: SSIG=1;
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:57: SSIG=1;
 	setb	_SSIG
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:54: SPCR=SPE|MSTR|CPOL|CPHA|SPR1|SPR0; // Mode (1,1): see figure 6--2 of MCP3004 datasheet.
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:58: SPCR=SPE|MSTR|CPOL|CPHA|SPR1|SPR0; // Mode (1,1): see figure 6--2 of MCP3004 datasheet.
 	mov	_SPCR,#0x5F
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:55: P1_4=0;                            // Activate the MCP3004 ADC.
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:59: P1_4=0;                            // Activate the MCP3004 ADC.
 	clr	_P1_4
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:56: SPIWrite(0x01);                    // Send the start bit.
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:60: SPIWrite(0x01);                    // Send the start bit.
 	mov	dpl,#0x01
 	push	ar2
 	lcall	_SPIWrite
 	pop	ar2
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:57: SPIWrite((channel*0x10)|0x80);     // Send single/diff* bit, D2, D1, and D0 bits.
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:61: SPIWrite((channel*0x10)|0x80);     // Send single/diff* bit, D2, D1, and D0 bits.
 	mov	a,r2
 	swap	a
 	anl	a,#0xf0
@@ -396,19 +409,19 @@ _GetADC:
 	orl	a,r2
 	mov	dpl,a
 	lcall	_SPIWrite
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:58: adc=((SPDR & 0x03)*0x100);         // SPDR has the 2--most significant bits of volt.
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:62: adc=((SPDR & 0x03)*0x100);         // SPDR has the 2--most significant bits of volt.
 	mov	a,#0x03
 	anl	a,_SPDR
 	mov	r3,a
 	mov	r2,#0x00
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:59: SPIWrite(0x55);                    // It doesn't matter what we send now.
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:63: SPIWrite(0x55);                    // It doesn't matter what we send now.
 	mov	dpl,#0x55
 	push	ar2
 	push	ar3
 	lcall	_SPIWrite
 	pop	ar3
 	pop	ar2
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:60: adc+=SPDR;                         // SPDR contains the low part of the result.
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:64: adc+=SPDR;                         // SPDR contains the low part of the result.
 	mov	r4,_SPDR
 	mov	r5,#0x00
 	mov	a,r4
@@ -417,9 +430,9 @@ _GetADC:
 	mov	a,r5
 	addc	a,r3
 	mov	r3,a
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:61: P1_4=1;                            // Deactivate the MCP3004 ADC.
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:65: P1_4=1;                            // Deactivate the MCP3004 ADC.
 	setb	_P1_4
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:62: return adc;
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:66: return adc;
 	mov	dpl,r2
 	mov	dph,r3
 	ret
@@ -428,14 +441,14 @@ _GetADC:
 ;------------------------------------------------------------
 ;time                      Allocated to registers r2 r3 
 ;------------------------------------------------------------
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:65: void wait(int time) //10000 = 5ms
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:69: void wait(int time) //10000 = 5ms
 ;	-----------------------------------------
 ;	 function wait
 ;	-----------------------------------------
 _wait:
 	mov	r2,dpl
 	mov	r3,dph
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:67: while(--time);
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:71: while(--time);
 L005001?:
 	dec	r2
 	cjne	r2,#0xff,L005008?
@@ -449,59 +462,174 @@ L005008?:
 ;Allocation info for local variables in function 'OnOffControl'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:70: void OnOffControl()
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:74: void OnOffControl()
 ;	-----------------------------------------
 ;	 function OnOffControl
 ;	-----------------------------------------
 _OnOffControl:
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:72: leftInd = GetADC(INDUCTOR_LEFT_CH);
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:76: leftInd = GetADC(INDUCTOR_LEFT_CH);
 	mov	dpl,#0x00
 	lcall	_GetADC
 	mov	_leftInd,dpl
 	mov	(_leftInd + 1),dph
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:73: rightInd = GetADC(INDUCTOR_RIGHT_CH);
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:77: rightInd = GetADC(INDUCTOR_RIGHT_CH);
 	mov	dpl,#0x01
 	lcall	_GetADC
 	mov	_rightInd,dpl
 	mov	(_rightInd + 1),dph
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:75: if(leftInd > rightInd)
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:79: if(leftInd > rightInd)
 	clr	c
 	mov	a,_rightInd
 	subb	a,_leftInd
 	mov	a,(_rightInd + 1)
 	subb	a,(_leftInd + 1)
 	jnc	L006002?
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:77: pwmL = 0;
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:81: pwmL = 0;
 	mov	_pwmL,#0x00
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:78: pwmR = 100;
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:82: pwmR = 100;
 	mov	_pwmR,#0x64
 	ret
 L006002?:
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:82: pwmL = 100;
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:86: pwmL = 100;
 	mov	_pwmL,#0x64
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:83: pwmR = 0;		
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:87: pwmR = 0;		
 	mov	_pwmR,#0x00
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'test_fcn'
+;------------------------------------------------------------
+;test                      Allocated to registers 
+;------------------------------------------------------------
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:91: void test_fcn()
+;	-----------------------------------------
+;	 function test_fcn
+;	-----------------------------------------
+_test_fcn:
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:94: test = (char*) malloc(90*sizeof(char));
+	mov	dptr,#0x005A
+	ljmp	_malloc
+;------------------------------------------------------------
+;Allocation info for local variables in function 'allocate2D'
+;------------------------------------------------------------
+;cols                      Allocated with name '_allocate2D_PARM_2'
+;rows                      Allocated with name '_allocate2D_rows_1_54'
+;arr2D                     Allocated with name '_allocate2D_arr2D_1_55'
+;i                         Allocated with name '_allocate2D_i_1_55'
+;sloc0                     Allocated with name '_allocate2D_sloc0_1_0'
+;------------------------------------------------------------
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:97: int** allocate2D(int rows,int cols)
+;	-----------------------------------------
+;	 function allocate2D
+;	-----------------------------------------
+_allocate2D:
+	mov	_allocate2D_rows_1_54,dpl
+	mov	(_allocate2D_rows_1_54 + 1),dph
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:102: arr2D = (int**)malloc(rows*sizeof(int*));
+	mov	__mulint_PARM_2,_allocate2D_rows_1_54
+	mov	(__mulint_PARM_2 + 1),(_allocate2D_rows_1_54 + 1)
+	mov	dptr,#0x0003
+	lcall	__mulint
+	lcall	_malloc
+	mov	r4,dpl
+	mov	r5,dph
+	mov	_allocate2D_arr2D_1_55,r4
+	mov	(_allocate2D_arr2D_1_55 + 1),r5
+	mov	(_allocate2D_arr2D_1_55 + 2),#0x00
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:103: for(i=0;i<rows;i++)
+	mov	a,_allocate2D_PARM_2
+	add	a,_allocate2D_PARM_2
+	mov	r7,a
+	mov	a,(_allocate2D_PARM_2 + 1)
+	rlc	a
+	mov	r0,a
+	clr	a
+	mov	_allocate2D_i_1_55,a
+	mov	(_allocate2D_i_1_55 + 1),a
+	mov	_allocate2D_sloc0_1_0,a
+	mov	(_allocate2D_sloc0_1_0 + 1),a
+L008001?:
+	clr	c
+	mov	a,_allocate2D_i_1_55
+	subb	a,_allocate2D_rows_1_54
+	mov	a,(_allocate2D_i_1_55 + 1)
+	xrl	a,#0x80
+	mov	b,(_allocate2D_rows_1_54 + 1)
+	xrl	b,#0x80
+	subb	a,b
+	jnc	L008004?
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:105: arr2D[i] = (int*)malloc(cols*sizeof(int));
+	mov	a,_allocate2D_sloc0_1_0
+	add	a,_allocate2D_arr2D_1_55
+	mov	r3,a
+	mov	a,(_allocate2D_sloc0_1_0 + 1)
+	addc	a,(_allocate2D_arr2D_1_55 + 1)
+	mov	r4,a
+	mov	r5,(_allocate2D_arr2D_1_55 + 2)
+	mov	dpl,r7
+	mov	dph,r0
+	push	ar3
+	push	ar4
+	push	ar5
+	push	ar7
+	push	ar0
+	lcall	_malloc
+	mov	r6,dpl
+	mov	r2,dph
+	pop	ar0
+	pop	ar7
+	pop	ar5
+	pop	ar4
+	pop	ar3
+	mov	r1,#0x00
+	mov	dpl,r3
+	mov	dph,r4
+	mov	b,r5
+	mov	a,r6
+	lcall	__gptrput
+	inc	dptr
+	mov	a,r2
+	lcall	__gptrput
+	inc	dptr
+	mov	a,r1
+	lcall	__gptrput
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:103: for(i=0;i<rows;i++)
+	mov	a,#0x03
+	add	a,_allocate2D_sloc0_1_0
+	mov	_allocate2D_sloc0_1_0,a
+	clr	a
+	addc	a,(_allocate2D_sloc0_1_0 + 1)
+	mov	(_allocate2D_sloc0_1_0 + 1),a
+	inc	_allocate2D_i_1_55
+	clr	a
+	cjne	a,_allocate2D_i_1_55,L008001?
+	inc	(_allocate2D_i_1_55 + 1)
+	sjmp	L008001?
+L008004?:
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:108: return arr2D;
+	mov	dpl,_allocate2D_arr2D_1_55
+	mov	dph,(_allocate2D_arr2D_1_55 + 1)
+	mov	b,(_allocate2D_arr2D_1_55 + 2)
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'LineFollow'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:89: void LineFollow()
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:113: void LineFollow()
 ;	-----------------------------------------
 ;	 function LineFollow
 ;	-----------------------------------------
 _LineFollow:
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:91: leftInd = GetADC(INDUCTOR_LEFT_CH);
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:115: leftInd = GetADC(INDUCTOR_LEFT_CH);
 	mov	dpl,#0x00
 	lcall	_GetADC
 	mov	_leftInd,dpl
 	mov	(_leftInd + 1),dph
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:92: rightInd = GetADC(INDUCTOR_RIGHT_CH);
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:116: rightInd = GetADC(INDUCTOR_RIGHT_CH);
 	mov	dpl,#0x01
 	lcall	_GetADC
 	mov	_rightInd,dpl
 	mov	(_rightInd + 1),dph
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:94: error = leftInd - rightInd;
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:118: error = leftInd - rightInd;
 	mov	a,_leftInd
 	clr	c
 	subb	a,_rightInd
@@ -509,7 +637,7 @@ _LineFollow:
 	mov	a,(_leftInd + 1)
 	subb	a,(_rightInd + 1)
 	mov	(_error + 1),a
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:97: gain = KP*error;
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:121: gain = KP*error;
 	mov	dpl,_error
 	mov	dph,(_error + 1)
 	lcall	___sint2fs
@@ -539,7 +667,7 @@ _LineFollow:
 	lcall	___fs2sint
 	mov	_gain,dpl
 	mov	(_gain + 1),dph
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:99: if(error > 0)
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:123: if(error > 0)
 	clr	c
 	clr	a
 	subb	a,_error
@@ -548,30 +676,30 @@ _LineFollow:
 	mov	b,(_error + 1)
 	xrl	b,#0x80
 	subb	a,b
-	jnc	L007002?
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:101: pwmL = (gain<100)?100-gain:0;
+	jnc	L009002?
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:125: pwmL = (gain<100)?100-gain:0;
 	clr	c
 	mov	a,_gain
 	subb	a,#0x64
 	mov	a,(_gain + 1)
 	xrl	a,#0x80
 	subb	a,#0x80
-	jnc	L007006?
+	jnc	L009006?
 	mov	r2,_gain
 	mov	a,#0x64
 	clr	c
 	subb	a,r2
 	mov	r2,a
-	sjmp	L007007?
-L007006?:
+	sjmp	L009007?
+L009006?:
 	mov	r2,#0x00
-L007007?:
+L009007?:
 	mov	_pwmL,r2
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:102: pwmR = 100;
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:126: pwmR = 100;
 	mov	_pwmR,#0x64
 	ret
-L007002?:
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:106: gain *= -1;
+L009002?:
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:130: gain *= -1;
 	clr	c
 	clr	a
 	subb	a,_gain
@@ -579,32 +707,32 @@ L007002?:
 	clr	a
 	subb	a,(_gain + 1)
 	mov	(_gain + 1),a
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:107: pwmL = 100;
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:131: pwmL = 100;
 	mov	_pwmL,#0x64
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:108: pwmR = (gain<100)?100-gain:0;	
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:132: pwmR = (gain<100)?100-gain:0;	
 	clr	c
 	mov	a,_gain
 	subb	a,#0x64
 	mov	a,(_gain + 1)
 	xrl	a,#0x80
 	subb	a,#0x80
-	jnc	L007008?
+	jnc	L009008?
 	mov	r2,_gain
 	mov	a,#0x64
 	clr	c
 	subb	a,r2
 	mov	r2,a
-	sjmp	L007009?
-L007008?:
+	sjmp	L009009?
+L009008?:
 	mov	r2,#0x00
-L007009?:
+L009009?:
 	mov	_pwmR,r2
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'pwmcounter'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:114: void pwmcounter (void) interrupt 1
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:138: void pwmcounter (void) interrupt 1
 ;	-----------------------------------------
 ;	 function pwmcounter
 ;	-----------------------------------------
@@ -612,19 +740,19 @@ _pwmcounter:
 	push	acc
 	push	psw
 	mov	psw,#0x00
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:116: if(++pwmcount>99) pwmcount=0;
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:140: if(++pwmcount>99) pwmcount=0;
 	inc	_pwmcount
 	mov	a,_pwmcount
 	add	a,#0xff - 0x63
-	jnc	L008002?
+	jnc	L010002?
 	mov	_pwmcount,#0x00
-L008002?:
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:117: MOTOR_LEFT_PIN=(pwmL>pwmcount)?1:0;
+L010002?:
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:141: P1_0=(pwmL>pwmcount)?1:0;
 	clr	c
 	mov	a,_pwmcount
 	subb	a,_pwmL
 	mov	_P1_0,c
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:118: MOTOR_RIGHT_PIN=(pwmR>pwmcount)?1:0;	
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:142: P1_1=(pwmR>pwmcount)?1:0;	
 	clr	c
 	mov	a,_pwmcount
 	subb	a,_pwmR
@@ -639,28 +767,25 @@ L008002?:
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:121: void main (void)
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:145: void main (void)
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:123: setbaud_timer2(TIMER_2_RELOAD); // Initialize serial port using timer 2 
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:147: setbaud_timer2(TIMER_2_RELOAD); // Initialize serial port using timer 2 
 	mov	dptr,#0xFFFE
 	lcall	_setbaud_timer2
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:124: InitTimer0(); // Initialize timer 0 and its interrupt
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:148: InitTimer0(); // Initialize timer 0 and its interrupt
 	lcall	_InitTimer0
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:125: pwmL=0; //% duty cycle wave at 100Hz
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:149: pwmL=0; //% duty cycle wave at 100Hz
 	mov	_pwmL,#0x00
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:126: pwmR=0;	
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:150: pwmR=0;	
 	mov	_pwmR,#0x00
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:128: while(1)
-L009002?:
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:130: OnOffControl();
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:152: while(1)
+L011002?:
+;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:154: OnOffControl();
 	lcall	_OnOffControl
-;	C:\Users\Blake\Dropbox\Documents\GitHub\EECE-284\square_lp828.c:131: wait(10000);
-	mov	dptr,#0x2710
-	lcall	_wait
-	sjmp	L009002?
+	sjmp	L011002?
 	rseg R_CSEG
 
 	rseg R_CONST

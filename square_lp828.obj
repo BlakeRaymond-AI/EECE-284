@@ -14,41 +14,50 @@ BIT_BANK,data,0000,OV
 R_CONST,code,0000,NO
 rbank0,data,0000,OV
 R_DINIT,code,0000,NO
-R_DSEG,data,000B,NO
+R_DSEG,data,0016,NO
 R_OSEG,data,0000,OV
 R_IXSEG,xdata,0000,NO
 R_ISEG,idata,0000,NO
 R_HOME,code,0000,NO
 R_XINIT,code,0000,NO
-R_CSEG,code,01A2,NO
+R_CSEG,code,0247,NO
 </SEGMENTS>
 
 <LOCALS>
+_allocate2D_i_1_55,R_DSEG,0012,0002
+_allocate2D_sloc0_1_0,R_DSEG,0014,0002
 L003001?,R_CSEG,001D,0000
+_allocate2D_rows_1_54,R_DSEG,000D,0002
 L005008?,R_CSEG,0070,0000
 L005001?,R_CSEG,006B,0000
 L006002?,R_CSEG,009F,0000
-L007009?,R_CSEG,0160,0000
-L007008?,R_CSEG,015E,0000
-L007007?,R_CSEG,0134,0000
-L007006?,R_CSEG,0132,0000
-L007002?,R_CSEG,013A,0000
-L008002?,R_CSEG,0175,0000
-L009002?,R_CSEG,0197,0000
+L010002?,R_CSEG,0220,0000
+L011002?,R_CSEG,0242,0000
+L008004?,R_CSEG,0147,0000
+L008001?,R_CSEG,00DE,0000
+L009009?,R_CSEG,020B,0000
+L009008?,R_CSEG,0209,0000
+_allocate2D_arr2D_1_55,R_DSEG,000F,0003
+L009007?,R_CSEG,01DF,0000
+L009006?,R_CSEG,01DD,0000
+L009002?,R_CSEG,01E5,0000
 </LOCALS>
 
 <PUBLICS>
+_test_fcn,R_CSEG,00A6,0000
 _OnOffControl,R_CSEG,0075,0000
 _leftInd,R_DSEG,0003,0002
-_main,R_CSEG,0188,0000
+_main,R_CSEG,0233,0000
 _SPIWrite,R_CSEG,0017,0000
 _gain,R_DSEG,0009,0002
 _rightInd,R_DSEG,0005,0002
 _wait,R_CSEG,0067,0000
 _GetADC,R_CSEG,0021,0000
 _InitTimer0,R_CSEG,0000,0000
-_LineFollow,R_CSEG,00A6,0000
-_pwmcounter,R_CSEG,0163,0000
+_LineFollow,R_CSEG,0151,0000
+_allocate2D_PARM_2,R_DSEG,000B,0002
+_pwmcounter,R_CSEG,020E,0000
+_allocate2D,R_CSEG,00AC,0000
 _error,R_DSEG,0007,0002
 _pwmL,R_DSEG,0001,0001
 _pwmR,R_DSEG,0002,0001
@@ -58,6 +67,10 @@ _pwmcount,R_DSEG,0000,0001
 <EXTERNALS>
 ___fs2sint,any,0000,0000
 ___fsmul,any,0000,0000
+__mulint,any,0000,0000
+__mulint_PARM_2,any,0000,0000
+_malloc,any,0000,0000
+__gptrput,any,0000,0000
 _setbaud_timer2,any,0000,0000
 _crt0,any,0000,0000
 ___sint2fs,any,0000,0000
@@ -179,6 +192,89 @@ E5 data8(_rightInd;0x0001;+;)
 75 data8(_pwmL;) 64
 75 data8(_pwmR;) 00
 22
+90 00 5A
+02 addr16(_malloc;)  
+85 82 data8(_allocate2D_rows_1_54;)
+85 83 data8(_allocate2D_rows_1_54;0x0001;+;)
+85 data8(_allocate2D_rows_1_54;) data8(__mulint_PARM_2;)
+85 data8(_allocate2D_rows_1_54;0x0001;+;) data8(__mulint_PARM_2;0x0001;+;)
+90 00 03
+12 addr16(__mulint;)  
+12 addr16(_malloc;)  
+AC 82
+AD 83
+8C data8(_allocate2D_arr2D_1_55;)
+8D data8(_allocate2D_arr2D_1_55;0x0001;+;)
+75 data8(_allocate2D_arr2D_1_55;0x0002;+;) 00
+E5 data8(_allocate2D_PARM_2;)
+25 data8(_allocate2D_PARM_2;)
+FF
+E5 data8(_allocate2D_PARM_2;0x0001;+;)
+33
+F8
+E4
+F5 data8(_allocate2D_i_1_55;)
+F5 data8(_allocate2D_i_1_55;0x0001;+;)
+F5 data8(_allocate2D_sloc0_1_0;)
+F5 data8(_allocate2D_sloc0_1_0;0x0001;+;)
+C3
+E5 data8(_allocate2D_i_1_55;)
+95 data8(_allocate2D_rows_1_54;)
+E5 data8(_allocate2D_i_1_55;0x0001;+;)
+64 80
+85 data8(_allocate2D_rows_1_54;0x0001;+;) F0
+63 F0 80
+95 F0
+50 rel2(L008004?;)
+E5 data8(_allocate2D_sloc0_1_0;)
+25 data8(_allocate2D_arr2D_1_55;)
+FB
+E5 data8(_allocate2D_sloc0_1_0;0x0001;+;)
+35 data8(_allocate2D_arr2D_1_55;0x0001;+;)
+FC
+AD data8(_allocate2D_arr2D_1_55;0x0002;+;)
+8F 82
+88 83
+C0 03
+C0 04
+C0 05
+C0 07
+C0 00
+12 addr16(_malloc;)  
+AE 82
+AA 83
+D0 00
+D0 07
+D0 05
+D0 04
+D0 03
+79 00
+8B 82
+8C 83
+8D F0
+EE
+12 addr16(__gptrput;)  
+A3
+EA
+12 addr16(__gptrput;)  
+A3
+E9
+12 addr16(__gptrput;)  
+74 03
+25 data8(_allocate2D_sloc0_1_0;)
+F5 data8(_allocate2D_sloc0_1_0;)
+E4
+35 data8(_allocate2D_sloc0_1_0;0x0001;+;)
+F5 data8(_allocate2D_sloc0_1_0;0x0001;+;)
+05 data8(_allocate2D_i_1_55;)
+E4
+B5 data8(_allocate2D_i_1_55;) rel3(L008001?;)
+05 data8(_allocate2D_i_1_55;0x0001;+;)
+80 rel2(L008001?;)
+85 data8(_allocate2D_arr2D_1_55;) 82
+85 data8(_allocate2D_arr2D_1_55;0x0001;+;) 83
+85 data8(_allocate2D_arr2D_1_55;0x0002;+;) F0
+22
 75 82 00
 12 addr16(_GetADC;)  
 85 82 data8(_leftInd;)
@@ -231,20 +327,20 @@ E4
 85 data8(_error;0x0001;+;) F0
 63 F0 80
 95 F0
-50 rel2(L007002?;)
+50 rel2(L009002?;)
 C3
 E5 data8(_gain;)
 94 64
 E5 data8(_gain;0x0001;+;)
 64 80
 94 80
-50 rel2(L007006?;)
+50 rel2(L009006?;)
 AA data8(_gain;)
 74 64
 C3
 9A
 FA
-80 rel2(L007007?;)
+80 rel2(L009007?;)
 7A 00
 8A data8(_pwmL;)
 75 data8(_pwmR;) 64
@@ -263,13 +359,13 @@ E5 data8(_gain;)
 E5 data8(_gain;0x0001;+;)
 64 80
 94 80
-50 rel2(L007008?;)
+50 rel2(L009008?;)
 AA data8(_gain;)
 74 64
 C3
 9A
 FA
-80 rel2(L007009?;)
+80 rel2(L009009?;)
 7A 00
 8A data8(_pwmR;)
 22
@@ -279,7 +375,7 @@ C0 D0
 05 data8(_pwmcount;)
 E5 data8(_pwmcount;)
 24 9C
-50 rel2(L008002?;)
+50 rel2(L010002?;)
 75 data8(_pwmcount;) 00
 C3
 E5 data8(_pwmcount;)
@@ -298,9 +394,7 @@ D0 E0
 75 data8(_pwmL;) 00
 75 data8(_pwmR;) 00
 12 addr16(_OnOffControl;)  
-90 27 10
-12 addr16(_wait;)  
-80 rel2(L009002?;)
+80 rel2(L011002?;)
 </CODE>
 
 <CODE R_CSEG>

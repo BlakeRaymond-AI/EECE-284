@@ -16,6 +16,8 @@
 #define MOTOR_LEFT_PIN P1_0
 #define MOTOR_RIGHT_PIN P1_1
 
+#define KP 0.25
+
 //These variables are used in the ISR
 volatile unsigned char pwmcount;
 volatile unsigned char pwmL;
@@ -26,6 +28,8 @@ volatile unsigned int rightInd;
 
 volatile int error;
 volatile int gain;
+
+
 
 void InitTimer0 (void)
 {
@@ -84,8 +88,6 @@ void OnOffControl()
 	}
 }
 
-#define KP 0.25
-
 void LineFollow()
 {
 	leftInd = GetADC(INDUCTOR_LEFT_CH);
@@ -114,8 +116,8 @@ void LineFollow()
 void pwmcounter (void) interrupt 1
 {
 	if(++pwmcount>99) pwmcount=0;
-	MOTOR_LEFT_PIN=(pwmL>pwmcount)?1:0;
-	MOTOR_RIGHT_PIN=(pwmR>pwmcount)?1:0;	
+	P1_0=(pwmL>pwmcount)?1:0;
+	P1_1=(pwmR>pwmcount)?1:0;	
 }
 
 void main (void)
@@ -128,7 +130,9 @@ void main (void)
 	while(1)
 	{
 		OnOffControl();
-		wait(10000);
+		//pwmL = 25;
+		//pwmR = 75;
+		//wait(10000);
 	}
 }
 
