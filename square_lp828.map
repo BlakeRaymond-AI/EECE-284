@@ -1,50 +1,26 @@
 Modules linked:
    'square_lp828' from 'square_lp828.obj'
-   'fs2sint' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
-   'fsmul' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+   'divuint' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libint.lib'
    'mulint' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libint.lib'
-   'malloc' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libc51.lib'
-   'gptrput' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libc51.lib'
    'setbaud2' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libc51.lib'
    'crt0' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libc51.lib'
-   'sint2fs' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
-   'fs2slong' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
-   'fsreturnval' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
-   'fsnormalize' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
-   'fsget2args' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
-   'heap' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libc51.lib'
    'startup' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libc51.lib'
-   'slong2fs' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
-   'fsget1arg' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
-   'fsrshift' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
 
 Memory use per module linked:
-       square_lp828: C:00583 D:022 I:000 B:000 X:00000
-            fs2sint: C:00052 D:000 I:000 B:000 X:00000
-              fsmul: C:00163 D:000 I:000 B:000 X:00000
+       square_lp828: C:00505 D:011 I:000 B:000 X:00000
+            divuint: C:00041 D:002 I:000 B:000 X:00000
              mulint: C:00029 D:002 I:000 B:000 X:00000
-             malloc: C:00311 D:004 I:000 B:000 X:00000
-            gptrput: C:00025 D:001 I:000 B:000 X:00000
            setbaud2: C:00017 D:000 I:000 B:000 X:00000
                crt0: C:00089 D:000 I:000 B:000 X:00000
-            sint2fs: C:00013 D:000 I:000 B:000 X:00000
-           fs2slong: C:00091 D:000 I:000 B:000 X:00000
-        fsreturnval: C:00079 D:000 I:000 B:000 X:00000
-        fsnormalize: C:00051 D:000 I:000 B:000 X:00000
-         fsget2args: C:00046 D:000 I:000 B:000 X:00000
-               heap: C:00002 D:000 I:000 B:000 X:01024
             startup: C:00004 D:000 I:000 B:000 X:00000
-           slong2fs: C:00045 D:000 I:000 B:000 X:00000
-          fsget1arg: C:00018 D:000 I:000 B:000 X:00000
-           fsrshift: C:00067 D:000 I:000 B:000 X:00000
            ABSOLUTE: C:00007 D:000 I:000 B:000 X:00000
 ------------------------------------------------------
-             Totals: C:01692 D:029 I:000 B:000 X:01024
+             Totals: C:00692 D:015 I:000 B:000 X:00000
 
 INTERMAL RAM map (see legend below):
 00: 0 0 0 0 0 0 0 0 a a a a a a a a 
-10: a a a a a a a a a a a a a a b b 
-20: b b c c . . . . . . . . . . . . 
+10: a a a b b . . . . . . . . . . . 
+20: . . . . . . . . . . . . . . . . 
 30: . . . . . . . . . . . . . . . . 
 40: . . . . . . . . . . . . . . . . 
 50: . . . . . . . . . . . . . . . . 
@@ -66,8 +42,7 @@ Legend:
 	3: Register bank 3
 	B: bits (see 'BIT map' below)
 	a: square_lp828:R_DSEG
-	b: malloc:R_DSEG
-	c: R_OSEG
+	b: R_OSEG
 
 BIT map:
 00: . . . . . . . . . . . . . . . . 
@@ -80,7 +55,7 @@ BIT map:
 70: . . . . . . . . . . . . . . . . 
 
 CODE usage map:
-0000: 256 256 256 256 256 256 156 000 000 000 000 000 000 000 000 000 
+0000: 249 256 187 000 000 000 000 000 000 000 000 000 000 000 000 000 
 1000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 2000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 3000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
@@ -96,10 +71,10 @@ C000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000
 D000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 E000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 F000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
-Total: 1692 bytes
+Total: 692 bytes
 
 XDATA usage map:
-0000: 256 256 256 256 000 000 000 000 000 000 000 000 000 000 000 000 
+0000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 1000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 2000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 3000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
@@ -115,64 +90,50 @@ C000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000
 D000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 E000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 F000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
-Total: 1024 bytes
+Total: 0 bytes
 
 Base Segments:
    BIT_BANK=D:0000, size=0000
    R_BSEG=B:0000, size=0000
-   R_CONST=C:0003, size=0002
-   R_CSEG=C:0067, size=0635
-   R_DINIT=C:0005, size=0005
-   R_DSEG=D:0000, size=001A
+   R_CONST=C:0000, size=0000
+   R_CSEG=C:0067, size=0254
+   R_DINIT=C:0003, size=0000
+   R_DSEG=D:0000, size=000B
    R_GSINIT=C:000E, size=0059
    R_HOME=C:0000, size=0000
    R_ISEG=I:0000, size=0000
    R_IXSEG=X:0000, size=0000
-   R_OSEG=D:0022, size=0002
+   R_OSEG=D:0013, size=0002
    R_XINIT=C:0000, size=0000
-   R_XSEG=X:0000, size=0400
+   R_XSEG=X:0000, size=0000
    rbank0=D:0000, size=0008
 
 Module Segments:
    CSEG=C:0000, size=0007
    crt0:R_GSINIT=C:000E, size=0059
-   fs2sint:R_CSEG=C:02AE, size=0034
-   fs2slong:R_CSEG=C:050B, size=005B
-   fsget1arg:R_CSEG=C:0647, size=0012
-   fsget2args:R_CSEG=C:05E8, size=002E
-   fsmul:R_CSEG=C:02E2, size=00A3
-   fsnormalize:R_CSEG=C:05B5, size=0033
-   fsreturnval:R_CSEG=C:0566, size=004F
-   fsrshift:R_CSEG=C:0659, size=0043
-   gptrput:R_CSEG=C:04D4, size=0019
-   gptrput:R_OSEG=D:0022, size=0001
-   heap:R_CONST=C:0003, size=0002
-   heap:R_XSEG=X:0000, size=0400
-   malloc:R_CSEG=C:03A2, size=0132
-   malloc:R_DINIT=C:0005, size=0005
-   malloc:R_DSEG=D:001E, size=0004
-   mulint:R_CSEG=C:0385, size=001D
-   mulint:R_OSEG=D:0022, size=0002
-   setbaud2:R_CSEG=C:04ED, size=0011
-   sint2fs:R_CSEG=C:04FE, size=000D
-   slong2fs:R_CSEG=C:061A, size=002D
-   square_lp828:R_CSEG=C:0067, size=0247
-   square_lp828:R_DSEG=D:0008, size=0016
-   startup:R_CSEG=C:0616, size=0004
+   divuint:R_CSEG=C:0260, size=0029
+   divuint:R_OSEG=D:0013, size=0002
+   mulint:R_CSEG=C:0289, size=001D
+   mulint:R_OSEG=D:0013, size=0002
+   setbaud2:R_CSEG=C:02A6, size=0011
+   square_lp828:R_CSEG=C:0067, size=01F9
+   square_lp828:R_DSEG=D:0008, size=000B
+   startup:R_CSEG=C:02B7, size=0004
 
 Public symbols:
+   _AverageADC=C:012B
    _GetADC=C:0088
    _InitTimer0=C:0067
-   _LineFollow=C:01B8
-   _OnOffControl=C:00DC
+   _LineFollow=C:0177
+   _OnOffControl=C:00FA
    _R_BSEG_size=L:0000
    _R_BSEG_start=L:0000
-   _R_CONST_size=L:0002
-   _R_CONST_start=L:0003
-   _R_CSEG_size=L:0635
+   _R_CONST_size=L:0000
+   _R_CONST_start=L:0000
+   _R_CSEG_size=L:0254
    _R_CSEG_start=L:0067
-   _R_DINIT_size=L:0005
-   _R_DINIT_start=L:0005
+   _R_DINIT_size=L:0000
+   _R_DINIT_start=L:0003
    _R_GSINIT_size=L:0059
    _R_GSINIT_start=L:000E
    _R_HOME_size=L:0000
@@ -182,59 +143,35 @@ Public symbols:
    _R_IXSEG_size=L:0000
    _R_IXSEG_start=L:0000
    _R_OSEG_size=L:0002
-   _R_OSEG_start=L:0022
+   _R_OSEG_start=L:0013
    _R_XINIT_size=L:0000
    _R_XINIT_start=L:0000
-   _R_XSEG_size=L:0400
+   _R_XSEG_size=L:0000
    _R_XSEG_start=L:0000
    _SPIWrite=C:007E
-   ___fs2sint=C:02AE
-   ___fs2slong=C:050B
-   ___fsmul=C:02E2
-   ___sint2fs=C:04FE
-   ___slong2fs=C:061A
-   __c51_external_startup=C:0616
-   __c51_first_memheader=D:001E
-   __c51_heap=X:0000
-   __c51_heap_size=C:0003
-   __gptrput=C:04D4
-   __gptrput_PARM_2=D:0022
-   __mulint=C:0385
-   __mulint_PARM_2=D:0022
-   __mulint_dummy=C:0385
-   _allocate2D=C:0113
-   _allocate2D_PARM_2=D:0013
+   __c51_external_startup=C:02B7
+   __divsint_PARM_2=D:0013
+   __divuint=C:0260
+   __divuint_PARM_2=D:0013
+   __mulint=C:0289
+   __mulint_PARM_2=D:0013
+   __mulint_dummy=C:0289
    _crt0=C:000E
-   _dummy_name_crt0=C:04FE
+   _dummy_name_crt0=C:02B7
    _error=D:000F
    _gain=D:0011
    _leftInd=D:000B
-   _main=C:029A
-   _malloc=C:03FB
-   _malloc_R_DSEG_size=L:0004
-   _malloc_R_DSEG_start=L:001E
+   _main=C:024C
    _pwmL=D:0009
    _pwmR=D:000A
    _pwmcount=D:0008
-   _pwmcounter=C:0275
+   _pwmcounter=C:0227
    _rightInd=D:000D
-   _setbaud_timer2=C:04ED
-   _square_lp828_R_DSEG_size=L:0016
+   _setbaud_timer2=C:02A6
+   _square_lp828_R_DSEG_size=L:000B
    _square_lp828_R_DSEG_start=L:0008
-   _stack_start=L:0024
-   _test_fcn=C:010D
+   _stack_start=L:0015
    _wait=C:00CE
-   fs_direct_return=C:058F
-   fs_normalize_a=C:05B5
-   fs_return_inf=C:059D
-   fs_return_nan=C:05AA
-   fs_return_zero=C:0587
-   fs_round_and_return=C:0566
-   fs_rshift_a=C:0659
-   fs_zerocheck_return=C:057E
-   fsgetarg=C:0647
-   fsgetargs=C:05E8
-   slong2fs_doit=C:0623
 
 Local symbols:
    crt0:XClearLoop?done?=C:005F
@@ -244,83 +181,21 @@ Local symbols:
    crt0:__c51_init_data=C:001B
    crt0:__c51_program_startup=C:0062
    crt0:forever?home?=C:0065
-   fs2sint:_dummy=C:02AE
-   fs2sint:fs2sint_clr_a=C:02BC
-   fs2sint:fs2sint_maxval_neg=C:02CE
-   fs2sint:fs2sint_maxval_pos=C:02DE
-   fs2sint:fs2sint_neg=C:02C0
-   fs2sint:fs2sint_not_zero=C:02BD
-   fs2sint:fs2sint_pos=C:02D2
-   fs2slong:_dummy=C:050B
-   fs2slong:fs2slong_clr_a=C:053E
-   fs2slong:fs2slong_int_ok=C:0515
-   fs2slong:fs2slong_maxval=C:054E
-   fs2slong:fs2slong_maxval_neg=C:0551
-   fs2slong:fs2slong_maxval_pos=C:055B
-   fs2slong:fs2slong_neg=C:051D
-   fs2slong:fs2slong_not_zero=C:053F
-   fs2slong:fs2slong_pos=C:0543
-   fsget1arg:L00001?=C:0654
-   fsget1arg:_dummy=C:0647
-   fsget2args:L00001?=C:05F5
-   fsget2args:L00002?=C:0611
-   fsget2args:_dummy=C:05E8
-   fsmul:L00001?=C:02E8
-   fsmul:L00002?=C:02EB
-   fsmul:L00003?=C:02F3
-   fsmul:L00004?=C:02FB
-   fsmul:L00005?=C:0303
-   fsmul:L00006?=C:030E
-   fsmul:L00007?=C:0316
-   fsmul:L00010?=C:0382
-   fsmul:_dummy=C:02E2
-   fsnormalize:L00001?=C:05B8
-   fsnormalize:L00002?=C:05CA
-   fsnormalize:L00003?=C:05CB
-   fsnormalize:L00004?=C:05CF
-   fsnormalize:L00005?=C:05D6
-   fsnormalize:L00006?=C:05E5
-   fsnormalize:_dummy=C:05B5
-   fsreturnval:L00001?=C:056C
-   fsreturnval:_dummy=C:0566
-   fsrshift:L00001?=C:0662
-   fsrshift:L00003?=C:0687
-   fsrshift:L00005?=C:068C
-   fsrshift:L00020?=C:069B
-   fsrshift:_dummy=C:0659
-   gptrput:codeptr?=C:04E7
-   gptrput:dataptrrestore?=C:04E2
-   gptrput:pdataptr?=C:04E8
-   gptrput:xdataptr?=C:04EB
-   malloc:L002002?=C:03BE
-   malloc:L002007?=C:03B9
-   malloc:L002008?=C:03BE
-   malloc:L003002?=C:0410
-   malloc:L003004?=C:0424
-   malloc:L003006?=C:0464
-   malloc:L003010?=C:0428
-   malloc:L003011?=C:0476
-   malloc:L003013?=C:049A
-   malloc:L003016?=C:04CF
-   malloc:_init_dynamic_memory=C:03A2
-   malloc:_malloc_size_1_8=D:0020
-   sint2fs:_dummy=C:04FE
-   slong2fs:_dummy=C:061A
-   slong2fs:slong2fs_positive=C:0641
+   divuint:__divuint_dummy=C:0260
+   divuint:loop=C:0265
+   divuint:smaller=C:0286
    square_lp828:L003001?=C:0084
-   square_lp828:L005001?=C:00D2
-   square_lp828:L005008?=C:00D7
-   square_lp828:L006002?=C:0106
-   square_lp828:L008001?=C:0145
-   square_lp828:L008004?=C:01AE
-   square_lp828:L009002?=C:024C
-   square_lp828:L009006?=C:0244
-   square_lp828:L009007?=C:0246
-   square_lp828:L009008?=C:0270
-   square_lp828:L009009?=C:0272
-   square_lp828:L010002?=C:0287
-   square_lp828:L011002?=C:02A9
-   square_lp828:_allocate2D_arr2D_1_55=D:0017
-   square_lp828:_allocate2D_i_1_55=D:001A
-   square_lp828:_allocate2D_rows_1_54=D:0015
-   square_lp828:_allocate2D_sloc0_1_0=D:001C
+   square_lp828:L005001?=C:00E9
+   square_lp828:L005004?=C:00D6
+   square_lp828:L005008?=C:00F9
+   square_lp828:L005017?=C:00EE
+   square_lp828:L006002?=C:0124
+   square_lp828:L007001?=C:0135
+   square_lp828:L007004?=C:016A
+   square_lp828:L008002?=C:01FE
+   square_lp828:L008006?=C:01F6
+   square_lp828:L008007?=C:01F8
+   square_lp828:L008008?=C:0222
+   square_lp828:L008009?=C:0224
+   square_lp828:L009002?=C:0239
+   square_lp828:L010002?=C:025B

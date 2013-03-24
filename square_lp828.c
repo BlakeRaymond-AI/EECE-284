@@ -16,7 +16,8 @@
 #define MOTOR_LEFT_PIN P1_0
 #define MOTOR_RIGHT_PIN P1_1
 
-#define KP 0.25
+//3 is tested to work with no offset
+#define KP 3
 
 //These variables are used in the ISR
 volatile unsigned char pwmcount;
@@ -66,9 +67,14 @@ unsigned int GetADC (unsigned char channel) // Read 10 bits from the MCP3004 ADC
 	return adc;
 }
 
-void wait(int time) //10000 = 5ms
+void wait(int time)
 {
-	while(--time);
+	int i = 0;
+	for(i=0; i<time; ++i)
+	{	
+		int j = 1000;
+		while(--j);
+	}
 }
 
 void OnOffControl()
@@ -76,7 +82,7 @@ void OnOffControl()
 	leftInd = GetADC(INDUCTOR_LEFT_CH);
 	rightInd = GetADC(INDUCTOR_RIGHT_CH);
 	
-	if(leftInd > rightInd)
+	if(leftInd > rightInd)	//there is no offset here. Is this used anymore? (one inductor was stronger than the other)
 	{
 		pwmL = 0;
 		pwmR = 100;
@@ -88,19 +94,31 @@ void OnOffControl()
 	}
 }
 
+unsigned int AverageADC(unsigned char channel)	
+{
+	unsigned int sum = 0;
+	int i;
+	for(i=0; i<10; ++i)
+	{
+		sum += GetADC(channel);
+	}
+	return sum/10;
+}
+
 void LineFollow()
 {
-	leftInd = GetADC(INDUCTOR_LEFT_CH);
-	rightInd = GetADC(INDUCTOR_RIGHT_CH);
+	leftInd = AverageADC(INDUCTOR_LEFT_CH)*4/3; //amplification done in software because the inductors are different
+	rightInd = AverageADC(INDUCTOR_RIGHT_CH);
 	
 	error = leftInd - rightInd;
 	//If error is positive, favour the right motor; if negative, favour the left motor
 	
-	gain = KP*error;
+	//error-20 works
+	gain = KP*(error-20);
 	
 	if(error > 0)
 	{
-		pwmL = (gain<100)?100-gain:0;
+		pwmL = (gain<100)?100-gain:0; //stops pwml from going negative. 
 		pwmR = 100;
 	}
 	else
@@ -129,10 +147,20 @@ void main (void)
 	
 	while(1)
 	{
-		OnOffControl();
+		//pwmR = AverageADC(INDUCTOR_LEFT_CH)/4;
+		//pwmL = AverageADC(INDUCTOR_RIGHT_CH)/4;
+		LineFollow();
+		
+		//wait(30);
+		
+		//if(leftInd>100) pwmL = 100;
+		//else pwmL = 0;
+		
+		//if(rightInd>100) pwmR = 100;
+		//else pwmR = 0;		
+		//OnOffControl();
 		//pwmL = 25;
 		//pwmR = 75;
-		//wait(10000);
 	}
 }
 
