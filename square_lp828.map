@@ -1,21 +1,39 @@
 Modules linked:
    'square_lp828' from 'square_lp828.obj'
+   'fs2sint' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
    'divuint' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libint.lib'
-   'mulint' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libint.lib'
+   'fsmul' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
    'setbaud2' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libc51.lib'
    'crt0' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libc51.lib'
+   'sint2fs' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+   'fs2slong' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+   'fsreturnval' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+   'fsnormalize' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+   'fsget2args' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
    'startup' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libc51.lib'
+   'slong2fs' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+   'fsget1arg' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+   'fsrshift' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
 
 Memory use per module linked:
-       square_lp828: C:00505 D:011 I:000 B:000 X:00000
+       square_lp828: C:00502 D:011 I:000 B:000 X:00000
+            fs2sint: C:00052 D:000 I:000 B:000 X:00000
             divuint: C:00041 D:002 I:000 B:000 X:00000
-             mulint: C:00029 D:002 I:000 B:000 X:00000
+              fsmul: C:00163 D:000 I:000 B:000 X:00000
            setbaud2: C:00017 D:000 I:000 B:000 X:00000
                crt0: C:00089 D:000 I:000 B:000 X:00000
+            sint2fs: C:00013 D:000 I:000 B:000 X:00000
+           fs2slong: C:00091 D:000 I:000 B:000 X:00000
+        fsreturnval: C:00079 D:000 I:000 B:000 X:00000
+        fsnormalize: C:00051 D:000 I:000 B:000 X:00000
+         fsget2args: C:00046 D:000 I:000 B:000 X:00000
             startup: C:00004 D:000 I:000 B:000 X:00000
+           slong2fs: C:00045 D:000 I:000 B:000 X:00000
+          fsget1arg: C:00018 D:000 I:000 B:000 X:00000
+           fsrshift: C:00067 D:000 I:000 B:000 X:00000
            ABSOLUTE: C:00007 D:000 I:000 B:000 X:00000
 ------------------------------------------------------
-             Totals: C:00692 D:015 I:000 B:000 X:00000
+             Totals: C:01285 D:013 I:000 B:000 X:00000
 
 INTERMAL RAM map (see legend below):
 00: 0 0 0 0 0 0 0 0 a a a a a a a a 
@@ -55,7 +73,7 @@ BIT map:
 70: . . . . . . . . . . . . . . . . 
 
 CODE usage map:
-0000: 249 256 187 000 000 000 000 000 000 000 000 000 000 000 000 000 
+0000: 249 256 256 256 256 012 000 000 000 000 000 000 000 000 000 000 
 1000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 2000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 3000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
@@ -71,7 +89,7 @@ C000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000
 D000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 E000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 F000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
-Total: 692 bytes
+Total: 1285 bytes
 
 XDATA usage map:
 0000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
@@ -96,7 +114,7 @@ Base Segments:
    BIT_BANK=D:0000, size=0000
    R_BSEG=B:0000, size=0000
    R_CONST=C:0000, size=0000
-   R_CSEG=C:0067, size=0254
+   R_CSEG=C:0067, size=04A5
    R_DINIT=C:0003, size=0000
    R_DSEG=D:0000, size=000B
    R_GSINIT=C:000E, size=0059
@@ -111,26 +129,33 @@ Base Segments:
 Module Segments:
    CSEG=C:0000, size=0007
    crt0:R_GSINIT=C:000E, size=0059
-   divuint:R_CSEG=C:0260, size=0029
+   divuint:R_CSEG=C:0291, size=0029
    divuint:R_OSEG=D:0013, size=0002
-   mulint:R_CSEG=C:0289, size=001D
-   mulint:R_OSEG=D:0013, size=0002
-   setbaud2:R_CSEG=C:02A6, size=0011
-   square_lp828:R_CSEG=C:0067, size=01F9
+   fs2sint:R_CSEG=C:025D, size=0034
+   fs2slong:R_CSEG=C:037B, size=005B
+   fsget1arg:R_CSEG=C:04B7, size=0012
+   fsget2args:R_CSEG=C:0458, size=002E
+   fsmul:R_CSEG=C:02BA, size=00A3
+   fsnormalize:R_CSEG=C:0425, size=0033
+   fsreturnval:R_CSEG=C:03D6, size=004F
+   fsrshift:R_CSEG=C:04C9, size=0043
+   setbaud2:R_CSEG=C:035D, size=0011
+   sint2fs:R_CSEG=C:036E, size=000D
+   slong2fs:R_CSEG=C:048A, size=002D
+   square_lp828:R_CSEG=C:0067, size=01F6
    square_lp828:R_DSEG=D:0008, size=000B
-   startup:R_CSEG=C:02B7, size=0004
+   startup:R_CSEG=C:0486, size=0004
 
 Public symbols:
-   _AverageADC=C:012B
+   _AverageADC=C:00FA
    _GetADC=C:0088
    _InitTimer0=C:0067
-   _LineFollow=C:0177
-   _OnOffControl=C:00FA
+   _LineFollow=C:0146
    _R_BSEG_size=L:0000
    _R_BSEG_start=L:0000
    _R_CONST_size=L:0000
    _R_CONST_start=L:0000
-   _R_CSEG_size=L:0254
+   _R_CSEG_size=L:04A5
    _R_CSEG_start=L:0067
    _R_DINIT_size=L:0000
    _R_DINIT_start=L:0003
@@ -149,29 +174,42 @@ Public symbols:
    _R_XSEG_size=L:0000
    _R_XSEG_start=L:0000
    _SPIWrite=C:007E
-   __c51_external_startup=C:02B7
+   ___fs2sint=C:025D
+   ___fs2slong=C:037B
+   ___fsmul=C:02BA
+   ___sint2fs=C:036E
+   ___slong2fs=C:048A
+   __c51_external_startup=C:0486
    __divsint_PARM_2=D:0013
-   __divuint=C:0260
+   __divuint=C:0291
    __divuint_PARM_2=D:0013
-   __mulint=C:0289
-   __mulint_PARM_2=D:0013
-   __mulint_dummy=C:0289
    _crt0=C:000E
-   _dummy_name_crt0=C:02B7
+   _dummy_name_crt0=C:036E
    _error=D:000F
    _gain=D:0011
    _leftInd=D:000B
-   _main=C:024C
+   _main=C:0249
    _pwmL=D:0009
    _pwmR=D:000A
    _pwmcount=D:0008
-   _pwmcounter=C:0227
+   _pwmcounter=C:0224
    _rightInd=D:000D
-   _setbaud_timer2=C:02A6
+   _setbaud_timer2=C:035D
    _square_lp828_R_DSEG_size=L:000B
    _square_lp828_R_DSEG_start=L:0008
    _stack_start=L:0015
    _wait=C:00CE
+   fs_direct_return=C:03FF
+   fs_normalize_a=C:0425
+   fs_return_inf=C:040D
+   fs_return_nan=C:041A
+   fs_return_zero=C:03F7
+   fs_round_and_return=C:03D6
+   fs_rshift_a=C:04C9
+   fs_zerocheck_return=C:03EE
+   fsgetarg=C:04B7
+   fsgetargs=C:0458
+   slong2fs_doit=C:0493
 
 Local symbols:
    crt0:XClearLoop?done?=C:005F
@@ -181,21 +219,68 @@ Local symbols:
    crt0:__c51_init_data=C:001B
    crt0:__c51_program_startup=C:0062
    crt0:forever?home?=C:0065
-   divuint:__divuint_dummy=C:0260
-   divuint:loop=C:0265
-   divuint:smaller=C:0286
+   divuint:__divuint_dummy=C:0291
+   divuint:loop=C:0296
+   divuint:smaller=C:02B7
+   fs2sint:_dummy=C:025D
+   fs2sint:fs2sint_clr_a=C:026B
+   fs2sint:fs2sint_maxval_neg=C:027D
+   fs2sint:fs2sint_maxval_pos=C:028D
+   fs2sint:fs2sint_neg=C:026F
+   fs2sint:fs2sint_not_zero=C:026C
+   fs2sint:fs2sint_pos=C:0281
+   fs2slong:_dummy=C:037B
+   fs2slong:fs2slong_clr_a=C:03AE
+   fs2slong:fs2slong_int_ok=C:0385
+   fs2slong:fs2slong_maxval=C:03BE
+   fs2slong:fs2slong_maxval_neg=C:03C1
+   fs2slong:fs2slong_maxval_pos=C:03CB
+   fs2slong:fs2slong_neg=C:038D
+   fs2slong:fs2slong_not_zero=C:03AF
+   fs2slong:fs2slong_pos=C:03B3
+   fsget1arg:L00001?=C:04C4
+   fsget1arg:_dummy=C:04B7
+   fsget2args:L00001?=C:0465
+   fsget2args:L00002?=C:0481
+   fsget2args:_dummy=C:0458
+   fsmul:L00001?=C:02C0
+   fsmul:L00002?=C:02C3
+   fsmul:L00003?=C:02CB
+   fsmul:L00004?=C:02D3
+   fsmul:L00005?=C:02DB
+   fsmul:L00006?=C:02E6
+   fsmul:L00007?=C:02EE
+   fsmul:L00010?=C:035A
+   fsmul:_dummy=C:02BA
+   fsnormalize:L00001?=C:0428
+   fsnormalize:L00002?=C:043A
+   fsnormalize:L00003?=C:043B
+   fsnormalize:L00004?=C:043F
+   fsnormalize:L00005?=C:0446
+   fsnormalize:L00006?=C:0455
+   fsnormalize:_dummy=C:0425
+   fsreturnval:L00001?=C:03DC
+   fsreturnval:_dummy=C:03D6
+   fsrshift:L00001?=C:04D2
+   fsrshift:L00003?=C:04F7
+   fsrshift:L00005?=C:04FC
+   fsrshift:L00020?=C:050B
+   fsrshift:_dummy=C:04C9
+   sint2fs:_dummy=C:036E
+   slong2fs:_dummy=C:048A
+   slong2fs:slong2fs_positive=C:04B1
    square_lp828:L003001?=C:0084
    square_lp828:L005001?=C:00E9
    square_lp828:L005004?=C:00D6
    square_lp828:L005008?=C:00F9
    square_lp828:L005017?=C:00EE
-   square_lp828:L006002?=C:0124
-   square_lp828:L007001?=C:0135
-   square_lp828:L007004?=C:016A
-   square_lp828:L008002?=C:01FE
-   square_lp828:L008006?=C:01F6
-   square_lp828:L008007?=C:01F8
-   square_lp828:L008008?=C:0222
-   square_lp828:L008009?=C:0224
-   square_lp828:L009002?=C:0239
-   square_lp828:L010002?=C:025B
+   square_lp828:L006001?=C:0104
+   square_lp828:L006004?=C:0139
+   square_lp828:L007002?=C:0179
+   square_lp828:L007005?=C:01FB
+   square_lp828:L007009?=C:01F3
+   square_lp828:L007010?=C:01F5
+   square_lp828:L007011?=C:021F
+   square_lp828:L007012?=C:0221
+   square_lp828:L008002?=C:0236
+   square_lp828:L009002?=C:0258

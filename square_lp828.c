@@ -17,7 +17,7 @@
 #define MOTOR_RIGHT_PIN P1_1
 
 //3 is tested to work with no offset
-#define KP 3
+#define KP 3.5
 
 //These variables are used in the ISR
 volatile unsigned char pwmcount;
@@ -77,38 +77,30 @@ void wait(int time)
 	}
 }
 
-void OnOffControl()
-{
-	leftInd = GetADC(INDUCTOR_LEFT_CH);
-	rightInd = GetADC(INDUCTOR_RIGHT_CH);
-	
-	if(leftInd > rightInd)	//there is no offset here. Is this used anymore? (one inductor was stronger than the other)
-	{
-		pwmL = 0;
-		pwmR = 100;
-	}
-	else
-	{
-		pwmL = 100;
-		pwmR = 0;		
-	}
-}
-
 unsigned int AverageADC(unsigned char channel)	
 {
 	unsigned int sum = 0;
 	int i;
-	for(i=0; i<10; ++i)
+	for(i=0; i<15; ++i)
 	{
 		sum += GetADC(channel);
 	}
-	return sum/10;
+	return sum/15;
 }
 
 void LineFollow()
 {
-	leftInd = AverageADC(INDUCTOR_LEFT_CH)*4/3; //amplification done in software because the inductors are different
+	leftInd = AverageADC(INDUCTOR_LEFT_CH); //amplification done in software because the inductors are different
 	rightInd = AverageADC(INDUCTOR_RIGHT_CH);
+	
+	//if (leftInd < 40) leftInd = 0;
+	
+	if(leftInd>128 && rightInd>128)
+	{
+		pwmL = 100;
+		pwmR = 100;
+		return;
+	}
 	
 	error = leftInd - rightInd;
 	//If error is positive, favour the right motor; if negative, favour the left motor
@@ -147,20 +139,7 @@ void main (void)
 	
 	while(1)
 	{
-		//pwmR = AverageADC(INDUCTOR_LEFT_CH)/4;
-		//pwmL = AverageADC(INDUCTOR_RIGHT_CH)/4;
 		LineFollow();
-		
-		//wait(30);
-		
-		//if(leftInd>100) pwmL = 100;
-		//else pwmL = 0;
-		
-		//if(rightInd>100) pwmR = 100;
-		//else pwmR = 0;		
-		//OnOffControl();
-		//pwmL = 25;
-		//pwmR = 75;
 	}
 }
 
