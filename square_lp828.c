@@ -30,8 +30,6 @@ volatile unsigned int rightInd;
 volatile int error;
 volatile int gain;
 
-
-
 void InitTimer0 (void)
 {
 	// Initialize timer 0 for ISR 'pwmcounter' below
@@ -67,25 +65,15 @@ unsigned int GetADC (unsigned char channel) // Read 10 bits from the MCP3004 ADC
 	return adc;
 }
 
-void wait(int time)
-{
-	int i = 0;
-	for(i=0; i<time; ++i)
-	{	
-		int j = 1000;
-		while(--j);
-	}
-}
-
 unsigned int AverageADC(unsigned char channel)	
 {
 	unsigned int sum = 0;
 	int i;
-	for(i=0; i<15; ++i)
+	for(i=0; i<10; ++i)
 	{
 		sum += GetADC(channel);
 	}
-	return sum/15;
+	return sum/10;
 }
 
 void LineFollow()
@@ -93,20 +81,11 @@ void LineFollow()
 	leftInd = AverageADC(INDUCTOR_LEFT_CH); //amplification done in software because the inductors are different
 	rightInd = AverageADC(INDUCTOR_RIGHT_CH);
 	
-	//if (leftInd < 40) leftInd = 0;
-	
-	if(leftInd>128 && rightInd>128)
-	{
-		pwmL = 100;
-		pwmR = 100;
-		return;
-	}
-	
 	error = leftInd - rightInd;
 	//If error is positive, favour the right motor; if negative, favour the left motor
 	
 	//error-20 works
-	gain = KP*(error-20);
+	gain = KP*error;
 	
 	if(error > 0)
 	{

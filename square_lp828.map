@@ -16,7 +16,7 @@ Modules linked:
    'fsrshift' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
 
 Memory use per module linked:
-       square_lp828: C:00502 D:011 I:000 B:000 X:00000
+       square_lp828: C:00425 D:011 I:000 B:000 X:00000
             fs2sint: C:00052 D:000 I:000 B:000 X:00000
             divuint: C:00041 D:002 I:000 B:000 X:00000
               fsmul: C:00163 D:000 I:000 B:000 X:00000
@@ -33,7 +33,7 @@ Memory use per module linked:
            fsrshift: C:00067 D:000 I:000 B:000 X:00000
            ABSOLUTE: C:00007 D:000 I:000 B:000 X:00000
 ------------------------------------------------------
-             Totals: C:01285 D:013 I:000 B:000 X:00000
+             Totals: C:01208 D:013 I:000 B:000 X:00000
 
 INTERMAL RAM map (see legend below):
 00: 0 0 0 0 0 0 0 0 a a a a a a a a 
@@ -73,7 +73,7 @@ BIT map:
 70: . . . . . . . . . . . . . . . . 
 
 CODE usage map:
-0000: 249 256 256 256 256 012 000 000 000 000 000 000 000 000 000 000 
+0000: 249 256 256 256 191 000 000 000 000 000 000 000 000 000 000 000 
 1000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 2000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 3000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
@@ -89,7 +89,7 @@ C000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000
 D000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 E000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 F000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
-Total: 1285 bytes
+Total: 1208 bytes
 
 XDATA usage map:
 0000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
@@ -114,7 +114,7 @@ Base Segments:
    BIT_BANK=D:0000, size=0000
    R_BSEG=B:0000, size=0000
    R_CONST=C:0000, size=0000
-   R_CSEG=C:0067, size=04A5
+   R_CSEG=C:0067, size=0458
    R_DINIT=C:0003, size=0000
    R_DSEG=D:0000, size=000B
    R_GSINIT=C:000E, size=0059
@@ -129,33 +129,33 @@ Base Segments:
 Module Segments:
    CSEG=C:0000, size=0007
    crt0:R_GSINIT=C:000E, size=0059
-   divuint:R_CSEG=C:0291, size=0029
+   divuint:R_CSEG=C:0244, size=0029
    divuint:R_OSEG=D:0013, size=0002
-   fs2sint:R_CSEG=C:025D, size=0034
-   fs2slong:R_CSEG=C:037B, size=005B
-   fsget1arg:R_CSEG=C:04B7, size=0012
-   fsget2args:R_CSEG=C:0458, size=002E
-   fsmul:R_CSEG=C:02BA, size=00A3
-   fsnormalize:R_CSEG=C:0425, size=0033
-   fsreturnval:R_CSEG=C:03D6, size=004F
-   fsrshift:R_CSEG=C:04C9, size=0043
-   setbaud2:R_CSEG=C:035D, size=0011
-   sint2fs:R_CSEG=C:036E, size=000D
-   slong2fs:R_CSEG=C:048A, size=002D
-   square_lp828:R_CSEG=C:0067, size=01F6
+   fs2sint:R_CSEG=C:0210, size=0034
+   fs2slong:R_CSEG=C:032E, size=005B
+   fsget1arg:R_CSEG=C:046A, size=0012
+   fsget2args:R_CSEG=C:040B, size=002E
+   fsmul:R_CSEG=C:026D, size=00A3
+   fsnormalize:R_CSEG=C:03D8, size=0033
+   fsreturnval:R_CSEG=C:0389, size=004F
+   fsrshift:R_CSEG=C:047C, size=0043
+   setbaud2:R_CSEG=C:0310, size=0011
+   sint2fs:R_CSEG=C:0321, size=000D
+   slong2fs:R_CSEG=C:043D, size=002D
+   square_lp828:R_CSEG=C:0067, size=01A9
    square_lp828:R_DSEG=D:0008, size=000B
-   startup:R_CSEG=C:0486, size=0004
+   startup:R_CSEG=C:0439, size=0004
 
 Public symbols:
-   _AverageADC=C:00FA
+   _AverageADC=C:00CE
    _GetADC=C:0088
    _InitTimer0=C:0067
-   _LineFollow=C:0146
+   _LineFollow=C:011A
    _R_BSEG_size=L:0000
    _R_BSEG_start=L:0000
    _R_CONST_size=L:0000
    _R_CONST_start=L:0000
-   _R_CSEG_size=L:04A5
+   _R_CSEG_size=L:0458
    _R_CSEG_start=L:0067
    _R_DINIT_size=L:0000
    _R_DINIT_start=L:0003
@@ -174,42 +174,41 @@ Public symbols:
    _R_XSEG_size=L:0000
    _R_XSEG_start=L:0000
    _SPIWrite=C:007E
-   ___fs2sint=C:025D
-   ___fs2slong=C:037B
-   ___fsmul=C:02BA
-   ___sint2fs=C:036E
-   ___slong2fs=C:048A
-   __c51_external_startup=C:0486
+   ___fs2sint=C:0210
+   ___fs2slong=C:032E
+   ___fsmul=C:026D
+   ___sint2fs=C:0321
+   ___slong2fs=C:043D
+   __c51_external_startup=C:0439
    __divsint_PARM_2=D:0013
-   __divuint=C:0291
+   __divuint=C:0244
    __divuint_PARM_2=D:0013
    _crt0=C:000E
-   _dummy_name_crt0=C:036E
+   _dummy_name_crt0=C:0321
    _error=D:000F
    _gain=D:0011
    _leftInd=D:000B
-   _main=C:0249
+   _main=C:01FC
    _pwmL=D:0009
    _pwmR=D:000A
    _pwmcount=D:0008
-   _pwmcounter=C:0224
+   _pwmcounter=C:01D7
    _rightInd=D:000D
-   _setbaud_timer2=C:035D
+   _setbaud_timer2=C:0310
    _square_lp828_R_DSEG_size=L:000B
    _square_lp828_R_DSEG_start=L:0008
    _stack_start=L:0015
-   _wait=C:00CE
-   fs_direct_return=C:03FF
-   fs_normalize_a=C:0425
-   fs_return_inf=C:040D
-   fs_return_nan=C:041A
-   fs_return_zero=C:03F7
-   fs_round_and_return=C:03D6
-   fs_rshift_a=C:04C9
-   fs_zerocheck_return=C:03EE
-   fsgetarg=C:04B7
-   fsgetargs=C:0458
-   slong2fs_doit=C:0493
+   fs_direct_return=C:03B2
+   fs_normalize_a=C:03D8
+   fs_return_inf=C:03C0
+   fs_return_nan=C:03CD
+   fs_return_zero=C:03AA
+   fs_round_and_return=C:0389
+   fs_rshift_a=C:047C
+   fs_zerocheck_return=C:03A1
+   fsgetarg=C:046A
+   fsgetargs=C:040B
+   slong2fs_doit=C:0446
 
 Local symbols:
    crt0:XClearLoop?done?=C:005F
@@ -219,68 +218,63 @@ Local symbols:
    crt0:__c51_init_data=C:001B
    crt0:__c51_program_startup=C:0062
    crt0:forever?home?=C:0065
-   divuint:__divuint_dummy=C:0291
-   divuint:loop=C:0296
-   divuint:smaller=C:02B7
-   fs2sint:_dummy=C:025D
-   fs2sint:fs2sint_clr_a=C:026B
-   fs2sint:fs2sint_maxval_neg=C:027D
-   fs2sint:fs2sint_maxval_pos=C:028D
-   fs2sint:fs2sint_neg=C:026F
-   fs2sint:fs2sint_not_zero=C:026C
-   fs2sint:fs2sint_pos=C:0281
-   fs2slong:_dummy=C:037B
-   fs2slong:fs2slong_clr_a=C:03AE
-   fs2slong:fs2slong_int_ok=C:0385
-   fs2slong:fs2slong_maxval=C:03BE
-   fs2slong:fs2slong_maxval_neg=C:03C1
-   fs2slong:fs2slong_maxval_pos=C:03CB
-   fs2slong:fs2slong_neg=C:038D
-   fs2slong:fs2slong_not_zero=C:03AF
-   fs2slong:fs2slong_pos=C:03B3
-   fsget1arg:L00001?=C:04C4
-   fsget1arg:_dummy=C:04B7
-   fsget2args:L00001?=C:0465
-   fsget2args:L00002?=C:0481
-   fsget2args:_dummy=C:0458
-   fsmul:L00001?=C:02C0
-   fsmul:L00002?=C:02C3
-   fsmul:L00003?=C:02CB
-   fsmul:L00004?=C:02D3
-   fsmul:L00005?=C:02DB
-   fsmul:L00006?=C:02E6
-   fsmul:L00007?=C:02EE
-   fsmul:L00010?=C:035A
-   fsmul:_dummy=C:02BA
-   fsnormalize:L00001?=C:0428
-   fsnormalize:L00002?=C:043A
-   fsnormalize:L00003?=C:043B
-   fsnormalize:L00004?=C:043F
-   fsnormalize:L00005?=C:0446
-   fsnormalize:L00006?=C:0455
-   fsnormalize:_dummy=C:0425
-   fsreturnval:L00001?=C:03DC
-   fsreturnval:_dummy=C:03D6
-   fsrshift:L00001?=C:04D2
-   fsrshift:L00003?=C:04F7
-   fsrshift:L00005?=C:04FC
-   fsrshift:L00020?=C:050B
-   fsrshift:_dummy=C:04C9
-   sint2fs:_dummy=C:036E
-   slong2fs:_dummy=C:048A
-   slong2fs:slong2fs_positive=C:04B1
+   divuint:__divuint_dummy=C:0244
+   divuint:loop=C:0249
+   divuint:smaller=C:026A
+   fs2sint:_dummy=C:0210
+   fs2sint:fs2sint_clr_a=C:021E
+   fs2sint:fs2sint_maxval_neg=C:0230
+   fs2sint:fs2sint_maxval_pos=C:0240
+   fs2sint:fs2sint_neg=C:0222
+   fs2sint:fs2sint_not_zero=C:021F
+   fs2sint:fs2sint_pos=C:0234
+   fs2slong:_dummy=C:032E
+   fs2slong:fs2slong_clr_a=C:0361
+   fs2slong:fs2slong_int_ok=C:0338
+   fs2slong:fs2slong_maxval=C:0371
+   fs2slong:fs2slong_maxval_neg=C:0374
+   fs2slong:fs2slong_maxval_pos=C:037E
+   fs2slong:fs2slong_neg=C:0340
+   fs2slong:fs2slong_not_zero=C:0362
+   fs2slong:fs2slong_pos=C:0366
+   fsget1arg:L00001?=C:0477
+   fsget1arg:_dummy=C:046A
+   fsget2args:L00001?=C:0418
+   fsget2args:L00002?=C:0434
+   fsget2args:_dummy=C:040B
+   fsmul:L00001?=C:0273
+   fsmul:L00002?=C:0276
+   fsmul:L00003?=C:027E
+   fsmul:L00004?=C:0286
+   fsmul:L00005?=C:028E
+   fsmul:L00006?=C:0299
+   fsmul:L00007?=C:02A1
+   fsmul:L00010?=C:030D
+   fsmul:_dummy=C:026D
+   fsnormalize:L00001?=C:03DB
+   fsnormalize:L00002?=C:03ED
+   fsnormalize:L00003?=C:03EE
+   fsnormalize:L00004?=C:03F2
+   fsnormalize:L00005?=C:03F9
+   fsnormalize:L00006?=C:0408
+   fsnormalize:_dummy=C:03D8
+   fsreturnval:L00001?=C:038F
+   fsreturnval:_dummy=C:0389
+   fsrshift:L00001?=C:0485
+   fsrshift:L00003?=C:04AA
+   fsrshift:L00005?=C:04AF
+   fsrshift:L00020?=C:04BE
+   fsrshift:_dummy=C:047C
+   sint2fs:_dummy=C:0321
+   slong2fs:_dummy=C:043D
+   slong2fs:slong2fs_positive=C:0464
    square_lp828:L003001?=C:0084
-   square_lp828:L005001?=C:00E9
-   square_lp828:L005004?=C:00D6
-   square_lp828:L005008?=C:00F9
-   square_lp828:L005017?=C:00EE
-   square_lp828:L006001?=C:0104
-   square_lp828:L006004?=C:0139
-   square_lp828:L007002?=C:0179
-   square_lp828:L007005?=C:01FB
-   square_lp828:L007009?=C:01F3
-   square_lp828:L007010?=C:01F5
-   square_lp828:L007011?=C:021F
-   square_lp828:L007012?=C:0221
-   square_lp828:L008002?=C:0236
-   square_lp828:L009002?=C:0258
+   square_lp828:L005001?=C:00D8
+   square_lp828:L005004?=C:010D
+   square_lp828:L006002?=C:01AE
+   square_lp828:L006006?=C:01A6
+   square_lp828:L006007?=C:01A8
+   square_lp828:L006008?=C:01D2
+   square_lp828:L006009?=C:01D4
+   square_lp828:L007002?=C:01E9
+   square_lp828:L008002?=C:020B

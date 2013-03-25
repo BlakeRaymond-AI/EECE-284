@@ -20,39 +20,33 @@ R_IXSEG,xdata,0000,NO
 R_ISEG,idata,0000,NO
 R_HOME,code,0000,NO
 R_XINIT,code,0000,NO
-R_CSEG,code,01F6,NO
+R_CSEG,code,01A9,NO
 </SEGMENTS>
 
 <LOCALS>
 L003001?,R_CSEG,001D,0000
-L007012?,R_CSEG,01BA,0000
-L007011?,R_CSEG,01B8,0000
-L007010?,R_CSEG,018E,0000
-L005008?,R_CSEG,0092,0000
-L005004?,R_CSEG,006F,0000
-L005001?,R_CSEG,0082,0000
-L006004?,R_CSEG,00D2,0000
-L006001?,R_CSEG,009D,0000
-L007009?,R_CSEG,018C,0000
-L007005?,R_CSEG,0194,0000
-L007002?,R_CSEG,0112,0000
-L008002?,R_CSEG,01CF,0000
-L009002?,R_CSEG,01F1,0000
-L005017?,R_CSEG,0087,0000
+L005004?,R_CSEG,00A6,0000
+L005001?,R_CSEG,0071,0000
+L006009?,R_CSEG,016D,0000
+L006008?,R_CSEG,016B,0000
+L006007?,R_CSEG,0141,0000
+L006006?,R_CSEG,013F,0000
+L006002?,R_CSEG,0147,0000
+L007002?,R_CSEG,0182,0000
+L008002?,R_CSEG,01A4,0000
 </LOCALS>
 
 <PUBLICS>
 _leftInd,R_DSEG,0003,0002
-_main,R_CSEG,01E2,0000
+_main,R_CSEG,0195,0000
 _SPIWrite,R_CSEG,0017,0000
 _gain,R_DSEG,0009,0002
 _rightInd,R_DSEG,0005,0002
-_wait,R_CSEG,0067,0000
 _GetADC,R_CSEG,0021,0000
 _InitTimer0,R_CSEG,0000,0000
-_LineFollow,R_CSEG,00DF,0000
-_AverageADC,R_CSEG,0093,0000
-_pwmcounter,R_CSEG,01BD,0000
+_LineFollow,R_CSEG,00B3,0000
+_AverageADC,R_CSEG,0067,0000
+_pwmcounter,R_CSEG,0170,0000
 _error,R_DSEG,0007,0002
 _pwmL,R_DSEG,0001,0001
 _pwmR,R_DSEG,0002,0001
@@ -157,43 +151,17 @@ D2 94
 8B 83
 22
 AA 82
-AB 83
-7C 00
-7D 00
-C3
-EC
-9A
-ED
-64 80
-8B F0
-63 F0 80
-95 F0
-50 rel2(L005008?;)
-7E E8
-7F 03
-1E
-BE FF rel3(L005017?;)
-1F
-EE
-4F
-70 rel2(L005001?;)
-0C
-BC 00 rel3(L005004?;)
-0D
-80 rel2(L005004?;)
-22
-AA 82
 7B 00
 7C 00
 7D 00
 7E 00
 C3
 ED
-94 0F
+94 0A
 EE
 64 80
 94 80
-50 rel2(L006004?;)
+50 rel2(L005004?;)
 8A 82
 C0 02
 C0 03
@@ -215,10 +183,10 @@ E8
 3C
 FC
 0D
-BD 00 rel3(L006001?;)
+BD 00 rel3(L005001?;)
 0E
-80 rel2(L006001?;)
-75 data8(__divuint_PARM_2;) 0F
+80 rel2(L005001?;)
+75 data8(__divuint_PARM_2;) 0A
 E4
 F5 data8(__divuint_PARM_2;0x0001;+;)
 8B 82
@@ -232,21 +200,6 @@ F5 data8(__divuint_PARM_2;0x0001;+;)
 12 addr16(_AverageADC;)  
 85 82 data8(_rightInd;)
 85 83 data8(_rightInd;0x0001;+;)
-C3
-74 80
-95 data8(_leftInd;)
-E4
-95 data8(_leftInd;0x0001;+;)
-50 rel2(L007002?;)
-C3
-74 80
-95 data8(_rightInd;)
-E4
-95 data8(_rightInd;0x0001;+;)
-50 rel2(L007002?;)
-75 data8(_pwmL;) 64
-75 data8(_pwmR;) 64
-22
 E5 data8(_leftInd;)
 C3
 95 data8(_rightInd;)
@@ -254,12 +207,8 @@ F5 data8(_error;)
 E5 data8(_leftInd;0x0001;+;)
 95 data8(_rightInd;0x0001;+;)
 F5 data8(_error;0x0001;+;)
-E5 data8(_error;)
-24 EC
-F5 82
-E5 data8(_error;0x0001;+;)
-34 FF
-F5 83
+85 data8(_error;) 82
+85 data8(_error;0x0001;+;) 83
 12 addr16(___sint2fs;)  
 AA 82
 AB 83
@@ -295,20 +244,20 @@ E4
 85 data8(_error;0x0001;+;) F0
 63 F0 80
 95 F0
-50 rel2(L007005?;)
+50 rel2(L006002?;)
 C3
 E5 data8(_gain;)
 94 64
 E5 data8(_gain;0x0001;+;)
 64 80
 94 80
-50 rel2(L007009?;)
+50 rel2(L006006?;)
 AA data8(_gain;)
 74 64
 C3
 9A
 FA
-80 rel2(L007010?;)
+80 rel2(L006007?;)
 7A 00
 8A data8(_pwmL;)
 75 data8(_pwmR;) 64
@@ -327,13 +276,13 @@ E5 data8(_gain;)
 E5 data8(_gain;0x0001;+;)
 64 80
 94 80
-50 rel2(L007011?;)
+50 rel2(L006008?;)
 AA data8(_gain;)
 74 64
 C3
 9A
 FA
-80 rel2(L007012?;)
+80 rel2(L006009?;)
 7A 00
 8A data8(_pwmR;)
 22
@@ -343,7 +292,7 @@ C0 D0
 05 data8(_pwmcount;)
 E5 data8(_pwmcount;)
 24 9C
-50 rel2(L008002?;)
+50 rel2(L007002?;)
 75 data8(_pwmcount;) 00
 C3
 E5 data8(_pwmcount;)
@@ -362,7 +311,7 @@ D0 E0
 75 data8(_pwmL;) 00
 75 data8(_pwmR;) 00
 12 addr16(_LineFollow;)  
-80 rel2(L009002?;)
+80 rel2(L008002?;)
 </CODE>
 
 <CODE R_CSEG>
