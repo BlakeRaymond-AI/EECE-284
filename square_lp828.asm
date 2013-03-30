@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by C51
 ; Version 1.0.0 #1034 (Dec 12 2012) (MSVC)
-; This file was generated Mon Mar 25 15:32:39 2013
+; This file was generated Mon Mar 25 16:22:49 2013
 ;--------------------------------------------------------
 $name square_lp828
 $optc51 --model-small

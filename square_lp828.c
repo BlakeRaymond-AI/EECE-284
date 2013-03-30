@@ -2,21 +2,24 @@
 #include <stdlib.h>
 #include <at89lp828.h>
 
+// System constants
 #define CLK 3686400L
 #define BAUD 115200L
 #define TIMER_2_RELOAD (0x10000L-(CLK/(16L*BAUD)))
 
-//We want timer 0 to interrupt every 100 microseconds ((1/10000Hz)=100 us)
+// We want timer 0 to interrupt every 100 microseconds ((1/10000Hz)=100 us)
 #define FREQ 10000L
 #define TIMER0_RELOAD_VALUE (65536L-(CLK/FREQ))
 
+// Input pins off of the ADC
 #define INDUCTOR_LEFT_CH 0
 #define INDUCTOR_RIGHT_CH 1
 
+// Output pins to the motor drivers
 #define MOTOR_LEFT_PIN P1_0
 #define MOTOR_RIGHT_PIN P1_1
 
-//3 is tested to work with no offset
+// Proportional gain for PID control algorithm
 #define KP 3.5
 
 //These variables are used in the ISR
@@ -30,9 +33,9 @@ volatile unsigned int rightInd;
 volatile int error;
 volatile int gain;
 
+// Initialize timer 0 for ISR 'pwmcounter' below
 void InitTimer0 (void)
 {
-	// Initialize timer 0 for ISR 'pwmcounter' below
 	TR0=0; // Stop timer 0
 	TMOD=(TMOD&0xf0)|0x01; // 16-bit timer
 	RH0=TIMER0_RELOAD_VALUE/0x100;
@@ -49,7 +52,8 @@ void SPIWrite (unsigned char value)
 	while (SPIF==0); // Wait for transmission to end
 }
 
-unsigned int GetADC (unsigned char channel) // Read 10 bits from the MCP3004 ADC converter
+// Read 10 bits from the MCP3004 ADC converter
+unsigned int GetADC (unsigned char channel) 
 {
 	unsigned int adc;
 	// initialize the SPI port to read the MCP3004 ADC attached to it.
@@ -65,6 +69,7 @@ unsigned int GetADC (unsigned char channel) // Read 10 bits from the MCP3004 ADC
 	return adc;
 }
 
+// Returns an average of 10 measurements from the ADC on the specified channel
 unsigned int AverageADC(unsigned char channel)	
 {
 	unsigned int sum = 0;
@@ -76,27 +81,30 @@ unsigned int AverageADC(unsigned char channel)
 	return sum/10;
 }
 
+// Main linefollowing routine.  Reads inductor measurements from the ADC and computes
+// the rover's position error.  Uses KP to produce a proportional gain for the motor outputs
+// to correct the rover's error.
 void LineFollow()
 {
-	leftInd = AverageADC(INDUCTOR_LEFT_CH); //amplification done in software because the inductors are different
+	//We average the readings from the inductors because they are noisy and we have cycles to spare
+	leftInd = AverageADC(INDUCTOR_LEFT_CH);
 	rightInd = AverageADC(INDUCTOR_RIGHT_CH);
 	
 	error = leftInd - rightInd;
 	//If error is positive, favour the right motor; if negative, favour the left motor
 	
-	//error-20 works
 	gain = KP*error;
 	
 	if(error > 0)
 	{
-		pwmL = (gain<100)?100-gain:0; //stops pwml from going negative. 
+		pwmL = (gain<100)?100-gain:0; //pwmL should not be <0
 		pwmR = 100;
 	}
 	else
 	{
-		gain *= -1;
+		gain *= -1; //make gain positive
 		pwmL = 100;
-		pwmR = (gain<100)?100-gain:0;	
+		pwmR = (gain<100)?100-gain:0; //pwmR should not be <0
 	}
 }
 
@@ -104,16 +112,16 @@ void LineFollow()
 // timer 0 overflows: 100 us.
 void pwmcounter (void) interrupt 1
 {
-	if(++pwmcount>99) pwmcount=0;
-	P1_0=(pwmL>pwmcount)?1:0;
-	P1_1=(pwmR>pwmcount)?1:0;	
+	if(++pwmcount>99) pwmcount = 0;
+	MOTOR_LEFT_PIN = (pwmL>pwmcount)?1:0;
+	MOTOR_RIGHT_PIN = (pwmR>pwmcount)?1:0;	
 }
 
 void main (void)
 {
     setbaud_timer2(TIMER_2_RELOAD); // Initialize serial port using timer 2 
 	InitTimer0(); // Initialize timer 0 and its interrupt
-	pwmL=0; //% duty cycle wave at 100Hz
+	pwmL=0; //% duty cycle wave at 100Hz; initial value 0 on rover boot
 	pwmR=0;	
 	
 	while(1)
@@ -121,4 +129,3 @@ void main (void)
 		LineFollow();
 	}
 }
-
